@@ -2,6 +2,7 @@ import './env';
 
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
+import nullthrows from 'nullthrows';
 
 import { schema } from './graphql/schema';
 
@@ -20,4 +21,4 @@ const onServerStart = (): void => {
   );
 };
 
-app.listen({ port: !PORT }, onServerStart);
+app.listen({ port: nullthrows(PORT) }, onServerStart);
