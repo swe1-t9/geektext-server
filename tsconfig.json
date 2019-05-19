@@ -8,10 +8,6 @@
     "lib": [
       "es5",
       "es6",
-<<<<<<< HEAD
-=======
-      "dom",
->>>>>>> bb6c488d8a188bf66bf5aab5c312ea9bad671200
       "es2015.core",
       "es2015.collection",
       "es2015.generator",
