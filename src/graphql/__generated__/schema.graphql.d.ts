@@ -51,7 +51,7 @@ export interface NexusGenRootTypes {
   ID: string;
   EmailAddress: string;
   PostalCode: string;
-  SensitiveString: any;
+  SensitiveString: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
