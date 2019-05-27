@@ -30,6 +30,9 @@ type Query {
   hello_world: String!
 }
 
+"""A string whose value is sensitive and should not be exposed."""
+scalar SensitiveString
+
 """The shipping information of a user"""
 type ShippingInformation {
   selected_shipping_address_id: ID
