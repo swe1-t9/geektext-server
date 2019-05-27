@@ -11,7 +11,7 @@ exports.up = async function(knex, Promise) {
     table.string('city').notNull();
     table.string('region').nullable();
     table.string('country').notNull();
-    table.integer('postal_code').notNull();
+    table.string('postal_code').notNull();
     table.dateTime('created_at').defaultTo(knex.fn.now());
   });
 };
