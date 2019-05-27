@@ -4,7 +4,13 @@
  */
 
 
-
+import { core } from "nexus"
+declare global {
+  interface NexusGenCustomDefinitionMethods<TypeName extends string> {
+    emailAddress<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "EmailAddress";
+    postalCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "PostalCode";
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -17,20 +23,61 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Address: { // root type
+    address_line_1: string; // String!
+    address_line_2?: string | null; // String
+    address_line_3?: string | null; // String
+    city: string; // String!
+    id: string; // ID!
+    postal_code: string; // PostalCode!
+    region?: string | null; // String
+  }
   Query: {};
+  ShippingInformation: { // root type
+    selected_shipping_address_id?: string | null; // ID
+    shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
+  }
+  User: { // root type
+    email_address: string; // EmailAddress!
+    first_name: string; // String!
+    id: string; // ID!
+    last_name: string; // String!
+  }
   String: string;
   Int: number;
   Float: number;
   Boolean: boolean;
   ID: string;
+  EmailAddress: string;
+  PostalCode: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  Address: { // field return type
+    address_line_1: string; // String!
+    address_line_2: string | null; // String
+    address_line_3: string | null; // String
+    city: string; // String!
+    id: string; // ID!
+    postal_code: string; // PostalCode!
+    region: string | null; // String
+  }
   Query: { // field return type
     hello_world: string; // String!
+  }
+  ShippingInformation: { // field return type
+    selected_shipping_address_id: string | null; // ID
+    shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
+  }
+  User: { // field return type
+    email_address: string; // EmailAddress!
+    first_name: string; // String!
+    id: string; // ID!
+    last_name: string; // String!
+    shipping_information: NexusGenRootTypes['ShippingInformation']; // ShippingInformation!
   }
 }
 
@@ -42,7 +89,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Query";
+export type NexusGenObjectNames = "Address" | "Query" | "ShippingInformation" | "User";
 
 export type NexusGenInputNames = never;
 
@@ -50,7 +97,7 @@ export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "PostalCode" | "String";
 
 export type NexusGenUnionNames = never;
 
