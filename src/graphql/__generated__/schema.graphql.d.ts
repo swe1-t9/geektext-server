@@ -9,6 +9,7 @@ declare global {
   interface NexusGenCustomDefinitionMethods<TypeName extends string> {
     emailAddress<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "EmailAddress";
     postalCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "PostalCode";
+    sensitiveString<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "SensitiveString";
   }
 }
 
@@ -50,6 +51,7 @@ export interface NexusGenRootTypes {
   ID: string;
   EmailAddress: string;
   PostalCode: string;
+  SensitiveString: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -97,7 +99,7 @@ export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "PostalCode" | "String";
+export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "PostalCode" | "SensitiveString" | "String";
 
 export type NexusGenUnionNames = never;
 

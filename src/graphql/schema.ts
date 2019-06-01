@@ -17,7 +17,8 @@ const schema = makeSchema({
       JWT: '{ id: ID }',
       EmailAddress: 'string',
       DateTime: 'Date',
-      PostalCode: 'string'
+      PostalCode: 'string',
+      SensitiveString: 'string'
     }
   }
 });
