@@ -4,3 +4,4 @@ export * from './PostalCode';
 export * from './Address';
 export * from './ShippingInformation';
 export * from './SensitiveString';
+export * from './JWT';
