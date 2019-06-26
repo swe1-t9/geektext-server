@@ -8,6 +8,7 @@ import { core } from "nexus"
 declare global {
   interface NexusGenCustomDefinitionMethods<TypeName extends string> {
     emailAddress<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "EmailAddress";
+    jwt<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "JWT";
     postalCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "PostalCode";
     sensitiveString<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "SensitiveString";
   }
@@ -18,6 +19,12 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  SignUpInput: { // input type
+    email: string; // EmailAddress!
+    first_name: string; // String!
+    last_name: string; // String!
+    password: string; // SensitiveString!
+  }
 }
 
 export interface NexusGenEnums {
@@ -33,6 +40,7 @@ export interface NexusGenRootTypes {
     postal_code: string; // PostalCode!
     region?: string | null; // String
   }
+  Mutation: {};
   Query: {};
   ShippingInformation: { // root type
     selected_shipping_address_id?: string | null; // ID
@@ -50,11 +58,13 @@ export interface NexusGenRootTypes {
   Boolean: boolean;
   ID: string;
   EmailAddress: string;
+  JWT: { id: ID };
   PostalCode: string;
   SensitiveString: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  SignUpInput: NexusGenInputs['SignUpInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -66,6 +76,9 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     postal_code: string; // PostalCode!
     region: string | null; // String
+  }
+  Mutation: { // field return type
+    sign_up: { id: ID }; // JWT!
   }
   Query: { // field return type
     hello_world: string; // String!
@@ -84,6 +97,11 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    sign_up: { // args
+      input: NexusGenInputs['SignUpInput']; // SignUpInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -91,15 +109,15 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Query" | "ShippingInformation" | "User";
+export type NexusGenObjectNames = "Address" | "Mutation" | "Query" | "ShippingInformation" | "User";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "SignUpInput";
 
 export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "PostalCode" | "SensitiveString" | "String";
+export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "JWT" | "PostalCode" | "SensitiveString" | "String";
 
 export type NexusGenUnionNames = never;
 

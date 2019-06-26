@@ -1,5 +1,5 @@
 declare global {
-  type ID = string | number;
+  type ID = string;
   type Nullable<T> = T | null | undefined;
 }
 
