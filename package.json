@@ -10,8 +10,7 @@
     "start": "ts-node ./src/index.ts",
     "dev": "tsnd --no-notify --transpileOnly --respawn ./src/index.ts ",
     "migrate": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:latest",
-    "rollback": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:rollback",
-    "seed": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js seed:run"
+    "rollback": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:rollback"
   },
   "husky": {
     "hooks": {
@@ -20,12 +19,14 @@
   },
   "dependencies": {
     "@okgrow/graphql-scalars": "^0.4.5",
+    "@types/jsonwebtoken": "^8.3.2",
     "apollo-server-express": "^2.5.0",
     "bcrypt": "^3.0.6",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
     "graphql": "^14.3.0",
-    "knex": "^0.17.6",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.5",
     "nexus": "^0.11.7",
     "nullthrows": "^1.1.1",
     "pg": "^7.11.0"
@@ -38,6 +39,6 @@
     "schemats": "^3.0.3",
     "ts-node": "^8.1.0",
     "ts-node-dev": "^1.0.0-pre.39",
-    "typescript": "~3.1.0"
+    "typescript": "^3.5.2"
   }
 }

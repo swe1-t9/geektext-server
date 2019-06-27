@@ -19,6 +19,13 @@ specified in RFC822: https://www.w3.org/Protocols/rfc822/.
 """
 scalar EmailAddress
 
+"""JWT token pre-signed by server when sent out"""
+scalar JWT
+
+type Mutation {
+  sign_up(input: SignUpInput!): JWT!
+}
+
 """
 A field whose value conforms to the standard postal code formats for United
 States, United Kingdom, Germany, Canada, France, Italy, Australia, Netherlands,
@@ -37,6 +44,13 @@ scalar SensitiveString
 type ShippingInformation {
   selected_shipping_address_id: ID
   shipping_addresses: [Address!]!
+}
+
+input SignUpInput {
+  email: EmailAddress!
+  first_name: String!
+  last_name: String!
+  password: SensitiveString!
 }
 
 """A Geektext user."""
