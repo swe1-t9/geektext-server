@@ -2,18 +2,15 @@ exports.up = async function(knex, Promise) {
   await knex.raw('create extension if not exists "uuid-ossp"');
   return knex.schema.createTable('books', function(table) {
     table
-      .uuid('id')
-      .defaultTo(knex.raw('uuid_generate_v4()'))
+      .string('book_id')
+      .notNull()
       .primary();
     table
       .string('isbn')
       .notNull()
       .unique();
-    table
-      .uuid('author_id')
-      .notNull()
-      .references('id')
-      .inTable('authors');
+    table.string('author_id').notNull()
+    table.string('price').notNull();
     table.string('title').notNull();
     table.string('genre').notNull();
     table.integer('publish_year').notNull();

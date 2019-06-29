@@ -2,8 +2,8 @@ exports.up = async function(knex, Promise) {
   await knex.raw('create extension if not exists "uuid-ossp"');
   return knex.schema.createTable('authors', function(table) {
     table
-      .uuid('id')
-      .defaultTo(knex.raw('uuid_generate_v4()'))
+      .string('author_id')
+      .notNull()
       .primary();
     table.string('first_name').notNull();
     table.string('last_name').notNull();
