@@ -5,3 +5,4 @@ export * from './Address';
 export * from './ShippingInformation';
 export * from './SensitiveString';
 export * from './JWT';
+export * from './Book';

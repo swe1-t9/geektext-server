@@ -19,6 +19,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  BookDetailsInput: { // input type
+    id: string; // ID!
+  }
   SignUpInput: { // input type
     email: string; // EmailAddress!
     first_name: string; // String!
@@ -39,6 +42,15 @@ export interface NexusGenRootTypes {
     id: string; // ID!
     postal_code: string; // PostalCode!
     region?: string | null; // String
+  }
+  Book: { // root type
+    author_id: string; // String!
+    book_id: string; // String!
+    genre: string; // String!
+    isbn: string; // String!
+    price: string; // String!
+    publish_year: number; // Int!
+    title: string; // String!
   }
   Mutation: {};
   Query: {};
@@ -64,6 +76,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
 }
 
@@ -77,10 +90,20 @@ export interface NexusGenFieldTypes {
     postal_code: string; // PostalCode!
     region: string | null; // String
   }
+  Book: { // field return type
+    author_id: string; // String!
+    book_id: string; // String!
+    genre: string; // String!
+    isbn: string; // String!
+    price: string; // String!
+    publish_year: number; // Int!
+    title: string; // String!
+  }
   Mutation: { // field return type
     sign_up: { id: ID }; // JWT!
   }
   Query: { // field return type
+    book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
   }
   ShippingInformation: { // field return type
@@ -102,6 +125,11 @@ export interface NexusGenArgTypes {
       input: NexusGenInputs['SignUpInput']; // SignUpInput!
     }
   }
+  Query: {
+    book_details: { // args
+      input: NexusGenInputs['BookDetailsInput']; // BookDetailsInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -109,9 +137,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Mutation" | "Query" | "ShippingInformation" | "User";
+export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "User";
 
-export type NexusGenInputNames = "SignUpInput";
+export type NexusGenInputNames = "BookDetailsInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 

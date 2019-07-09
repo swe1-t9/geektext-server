@@ -1,4 +1,4 @@
-import { queryField } from 'nexus/dist';
+import { queryField } from 'nexus';
 
 const HelloWorld = queryField('hello_world', {
   type: 'String',
