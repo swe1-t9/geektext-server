@@ -15,8 +15,9 @@ type Address {
 
 """The details of a book."""
 type Book {
-  author_id: String!
+  author_id: ID!
   cover: String!
+  description: String!
   genre: String!
   id: ID!
   isbn: String!

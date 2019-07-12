@@ -8,12 +8,13 @@ const Book = objectType({
   definition(t) {
     t.id('id');
     t.string('isbn');
-    t.string('author_id');
+    t.id('author_id');
     t.float('price');
     t.string('title');
     t.string('genre');
     t.int('publish_year');
     t.string('cover');
+    t.string('description');
   }
 });
 

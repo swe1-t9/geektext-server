@@ -44,8 +44,9 @@ export interface NexusGenRootTypes {
     region?: string | null; // String
   }
   Book: { // root type
-    author_id: string; // String!
+    author_id: string; // ID!
     cover: string; // String!
+    description: string; // String!
     genre: string; // String!
     id: string; // ID!
     isbn: string; // String!
@@ -92,8 +93,9 @@ export interface NexusGenFieldTypes {
     region: string | null; // String
   }
   Book: { // field return type
-    author_id: string; // String!
+    author_id: string; // ID!
     cover: string; // String!
+    description: string; // String!
     genre: string; // String!
     id: string; // ID!
     isbn: string; // String!
