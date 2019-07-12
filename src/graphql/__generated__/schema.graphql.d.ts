@@ -45,10 +45,10 @@ export interface NexusGenRootTypes {
   }
   Book: { // root type
     author_id: string; // String!
-    book_id: string; // String!
     genre: string; // String!
+    id: string; // ID!
     isbn: string; // String!
-    price: string; // String!
+    price: number; // Float!
     publish_year: number; // Int!
     title: string; // String!
   }
@@ -92,10 +92,10 @@ export interface NexusGenFieldTypes {
   }
   Book: { // field return type
     author_id: string; // String!
-    book_id: string; // String!
     genre: string; // String!
+    id: string; // ID!
     isbn: string; // String!
-    price: string; // String!
+    price: number; // Float!
     publish_year: number; // Int!
     title: string; // String!
   }
