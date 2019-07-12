@@ -2,11 +2,19 @@ exports.up = async function(knex, Promise) {
   await knex.raw('create extension if not exists "uuid-ossp"');
   return knex.schema.createTable('reviews', function(table) {
     table
-      .string('reviews_id')
-      .notNull()
+      .uuid('id')
+      .defaultTo(knex.raw('uuid_generate_v4()'))
       .primary();
-    table.string('user_id').notNull()
-    table.string('book_id').notNull()
+    table
+      .uuid('user_id')
+      .notNull()
+      .references('id')
+      .inTable('users');
+    table
+      .uuid('book_id')
+      .notNull()
+      .references('id')
+      .inTable('books');
     table.string('title').notNull();
     table.string('body').notNull();
     table.integer('rating').notNull();
