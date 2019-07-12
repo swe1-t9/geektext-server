@@ -13,6 +13,7 @@ const Book = objectType({
     t.string('title');
     t.string('genre');
     t.int('publish_year');
+    t.string('cover');
   }
 });
 
