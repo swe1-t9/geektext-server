@@ -11,6 +11,7 @@ declare global {
     jwt<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "JWT";
     postalCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "PostalCode";
     sensitiveString<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "SensitiveString";
+    url<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "URL";
   }
 }
 
@@ -45,7 +46,7 @@ export interface NexusGenRootTypes {
   }
   Book: { // root type
     author_id: string; // ID!
-    cover: string; // String!
+    cover: string; // URL!
     description: string; // String!
     genre: string; // String!
     id: string; // ID!
@@ -75,6 +76,7 @@ export interface NexusGenRootTypes {
   JWT: { id: ID };
   PostalCode: string;
   SensitiveString: string;
+  URL: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -94,7 +96,7 @@ export interface NexusGenFieldTypes {
   }
   Book: { // field return type
     author_id: string; // ID!
-    cover: string; // String!
+    cover: string; // URL!
     description: string; // String!
     genre: string; // String!
     id: string; // ID!
@@ -149,7 +151,7 @@ export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "JWT" | "PostalCode" | "SensitiveString" | "String";
+export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "JWT" | "PostalCode" | "SensitiveString" | "String" | "URL";
 
 export type NexusGenUnionNames = never;
 
