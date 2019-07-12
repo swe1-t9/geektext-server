@@ -7,6 +7,6 @@ const db = Knex({
   connection: DATABASE_URL
 });
 
-console.log(`> Initialized database on ${DATABASE_URL}`);
+DATABASE_URL && console.log(`> Initialized database on ${DATABASE_URL}`);
 
 export { db };
