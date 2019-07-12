@@ -1,16 +1,20 @@
 import './env';
 
 import { ApolloServer } from 'apollo-server-express';
+import { makeSchema } from 'nexus';
 import express from 'express';
 import nullthrows from 'nullthrows';
 
-import { schema } from './graphql/schema';
+import { types } from './graphql/schema';
 
 const { PORT } = process.env;
 
 const app = express();
 const apollo = new ApolloServer({
-  schema
+  schema: makeSchema({
+    types,
+    outputs: false
+  })
 });
 
 apollo.applyMiddleware({ app });
