@@ -17,9 +17,9 @@ const User = objectType({
         return getShippingInformation(user.id);
       }
     });
-    t.field('cart', {
+    t.field('shopping_cart', {
       type: 'ShoppingCart',
-      description: "The user's shipping information",
+      description: "The user's shopping cart",
       resolve(user) {
         return getShoppingCart(user.id);
       }
