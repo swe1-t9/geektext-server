@@ -76,7 +76,7 @@ export interface NexusGenRootTypes {
     id: string; // ID!
   }
   User: { // root type
-    email_address: string; // EmailAddress!
+    email: string; // EmailAddress!
     first_name: string; // String!
     id: string; // ID!
     last_name: string; // String!
@@ -127,6 +127,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
+    viewer: NexusGenRootTypes['User']; // User!
   }
   ShippingInformation: { // field return type
     selected_shipping_address_id: string | null; // ID
@@ -143,7 +144,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
   }
   User: { // field return type
-    email_address: string; // EmailAddress!
+    email: string; // EmailAddress!
     first_name: string; // String!
     id: string; // ID!
     last_name: string; // String!
