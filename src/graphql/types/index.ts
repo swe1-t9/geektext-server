@@ -7,3 +7,5 @@ export * from './ShoppingCart';
 export * from './ShoppingCartItem';
 export * from './SensitiveString';
 export * from './JWT';
+export * from './Book';
+export * from './URL';

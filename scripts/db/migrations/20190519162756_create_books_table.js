@@ -15,6 +15,8 @@ exports.up = async function(knex, Promise) {
       .references('id')
       .inTable('authors');
     table.float('price').notNull();
+    table.string('cover').notNull();
+    table.string('description').notNull();
     table.string('title').notNull();
     table.string('genre').notNull();
     table.integer('publish_year').notNull();

@@ -11,6 +11,7 @@ declare global {
     jwt<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "JWT";
     postalCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "PostalCode";
     sensitiveString<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "SensitiveString";
+    url<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "URL";
   }
 }
 
@@ -19,6 +20,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  BookDetailsInput: { // input type
+    id: string; // ID!
+  }
   LogInInput: { // input type
     email: string; // EmailAddress!
     password: string; // SensitiveString!
@@ -43,6 +47,17 @@ export interface NexusGenRootTypes {
     id: string; // ID!
     postal_code: string; // PostalCode!
     region?: string | null; // String
+  }
+  Book: { // root type
+    author_id: string; // ID!
+    cover: string; // URL!
+    description: string; // String!
+    genre: string; // String!
+    id: string; // ID!
+    isbn: string; // String!
+    price: number; // Float!
+    publish_year: number; // Int!
+    title: string; // String!
   }
   Mutation: {};
   Query: {};
@@ -75,9 +90,11 @@ export interface NexusGenRootTypes {
   JWT: { id: ID };
   PostalCode: string;
   SensitiveString: string;
+  URL: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   LogInInput: NexusGenInputs['LogInInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
 }
@@ -92,11 +109,23 @@ export interface NexusGenFieldTypes {
     postal_code: string; // PostalCode!
     region: string | null; // String
   }
+  Book: { // field return type
+    author_id: string; // ID!
+    cover: string; // URL!
+    description: string; // String!
+    genre: string; // String!
+    id: string; // ID!
+    isbn: string; // String!
+    price: number; // Float!
+    publish_year: number; // Int!
+    title: string; // String!
+  }
   Mutation: { // field return type
     log_in: { id: ID }; // JWT!
     sign_up: { id: ID }; // JWT!
   }
   Query: { // field return type
+    book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
   }
   ShippingInformation: { // field return type
@@ -132,6 +161,11 @@ export interface NexusGenArgTypes {
       input: NexusGenInputs['SignUpInput']; // SignUpInput!
     }
   }
+  Query: {
+    book_details: { // args
+      input: NexusGenInputs['BookDetailsInput']; // BookDetailsInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -139,15 +173,15 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
+export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "LogInInput" | "SignUpInput";
+export type NexusGenInputNames = "BookDetailsInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "JWT" | "PostalCode" | "SensitiveString" | "String";
+export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "JWT" | "PostalCode" | "SensitiveString" | "String" | "URL";
 
 export type NexusGenUnionNames = never;
 

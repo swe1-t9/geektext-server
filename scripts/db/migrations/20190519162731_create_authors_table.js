@@ -7,6 +7,7 @@ exports.up = async function(knex, Promise) {
       .primary();
     table.string('first_name').notNull();
     table.string('last_name').notNull();
+    table.string('bio').notNull();
     table.dateTime('created_at').defaultTo(knex.fn.now());
   });
 };
