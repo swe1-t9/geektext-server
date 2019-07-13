@@ -1,9 +1,10 @@
-class Context {
-  constructor(private _id: ID) {}
+import { users } from '../../data/db/__generated__/schema';
 
-  get id(): ID {
-    return this._id;
-  }
-}
+type AuthenticatedContext = { viewer: users };
 
-export { Context };
+type Context = AuthenticatedContext | {};
+
+const isAuthenticated = (context: Context): context is AuthenticatedContext =>
+  (context as AuthenticatedContext).viewer != null;
+
+export { Context, isAuthenticated };

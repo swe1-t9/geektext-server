@@ -3,13 +3,14 @@ import './env';
 import { ApolloServer } from 'apollo-server-express';
 import { makeSchema } from 'nexus';
 import express from 'express';
+import jwt from 'express-jwt';
 import nullthrows from 'nullthrows';
 
 import { types } from './graphql/schema';
-import { Context } from './graphql/context/Context';
+import { getUserById } from './data/user';
 import { RequestWithContext } from './utils/types';
 
-const { PORT } = process.env;
+const { PORT, JWT_SECRET } = process.env;
 
 const app = express();
 const apollo = new ApolloServer({
@@ -17,16 +18,17 @@ const apollo = new ApolloServer({
     types,
     outputs: false
   }),
-  context(ctx) {
+  async context(ctx) {
     const {
       req: { user }
     }: { req: RequestWithContext } = ctx;
     if (!!user) {
-      return new Context(user.id);
+      return { viewer: await getUserById(user.id) };
     }
-    return ctx;
   }
 });
+
+app.use(jwt({ secret: nullthrows(JWT_SECRET), credentialsRequired: false }));
 
 apollo.applyMiddleware({ app });
 
