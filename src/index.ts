@@ -6,6 +6,8 @@ import express from 'express';
 import nullthrows from 'nullthrows';
 
 import { types } from './graphql/schema';
+import { Context } from './graphql/context/Context';
+import { RequestWithContext } from './utils/types';
 
 const { PORT } = process.env;
 
@@ -14,7 +16,16 @@ const apollo = new ApolloServer({
   schema: makeSchema({
     types,
     outputs: false
-  })
+  }),
+  context(ctx) {
+    const {
+      req: { user }
+    }: { req: RequestWithContext } = ctx;
+    if (!!user) {
+      return new Context(user.id);
+    }
+    return ctx;
+  }
 });
 
 apollo.applyMiddleware({ app });
