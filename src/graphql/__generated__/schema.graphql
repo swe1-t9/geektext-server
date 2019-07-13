@@ -39,7 +39,13 @@ scalar EmailAddress
 """JWT token pre-signed by server when sent out"""
 scalar JWT
 
+input LogInInput {
+  email: EmailAddress!
+  password: SensitiveString!
+}
+
 type Mutation {
+  log_in(input: LogInInput!): JWT!
   sign_up(input: SignUpInput!): JWT!
 }
 
