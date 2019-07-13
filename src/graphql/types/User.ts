@@ -6,7 +6,7 @@ const User = objectType({
   description: 'A Geektext user.',
   definition(t) {
     t.id('id');
-    t.emailAddress('email_address');
+    t.emailAddress('email');
     t.string('first_name');
     t.string('last_name');
     t.field('shipping_information', {

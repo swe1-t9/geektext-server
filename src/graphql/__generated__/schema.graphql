@@ -59,6 +59,7 @@ scalar PostalCode
 type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
+  viewer: User!
 }
 
 """A string whose value is sensitive and should not be exposed."""
@@ -84,7 +85,7 @@ scalar URL
 
 """A Geektext user."""
 type User {
-  email_address: EmailAddress!
+  email: EmailAddress!
   first_name: String!
   id: ID!
   last_name: String!

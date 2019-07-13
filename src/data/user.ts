@@ -13,10 +13,16 @@ const createUser = async ({
     .first();
 };
 
-const getUser = async (email: string): Promise<users> =>
+const getUserByEmail = async (email: string): Promise<users> =>
   await db('users')
     .select('*')
     .where({ email })
     .first();
 
-export { createUser, getUser };
+const getUserById = async (id: ID): Promise<users> =>
+  await db('users')
+    .select('*')
+    .where({ id })
+    .first();
+
+export { createUser, getUserByEmail, getUserById };

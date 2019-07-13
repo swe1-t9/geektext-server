@@ -1,7 +1,7 @@
 import { compare } from 'bcrypt';
 import { mutationField, arg, inputObjectType } from 'nexus';
 
-import { getUser } from '../../data/user';
+import { getUserByEmail } from '../../data/user';
 
 const LogInInput = inputObjectType({
   name: 'LogInInput',
@@ -23,8 +23,7 @@ const LogIn = mutationField('log_in', {
     })
   },
   async resolve(root, { input: { email, password: inputPassword } }) {
-    const { id, password } = await getUser(email);
-    console.log(password, inputPassword);
+    const { id, password } = await getUserByEmail(email);
     const verifyPassword = await compare(inputPassword, password);
     if (!verifyPassword) {
       throw new Error('Incorrect password');
