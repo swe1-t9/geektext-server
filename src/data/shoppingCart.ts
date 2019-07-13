@@ -2,7 +2,7 @@ import { db } from './db';
 
 import { users, shopping_carts, shopping_cart_items, books } from './db/__generated__/schema';
 
-const addToCart = async (
+const addToShoppingCart = async (
   cart: shopping_carts,
   book: books
 ): Promise<shopping_cart_items> =>
@@ -11,12 +11,20 @@ const addToCart = async (
     .returning('*')
     .first();
 
-const createCart = async (
-    user: users
+const createShoppingCart = async (
+    userid: string
 ): Promise<shopping_carts> =>
     await db('shopping_carts')
-    .insert({user_id: user.id})
+    .insert({user_id: userid})
     .returning('*')
     .first();
 
-export { createCart, addToCart };
+const getShoppingCart = async (
+    userid: string
+): Promise<shopping_carts> =>
+    await db('shopping_carts')
+    .select({user_id: userid})
+    .returning('*')
+    .first();
+
+export { createShoppingCart, addToShoppingCart, getShoppingCart };
