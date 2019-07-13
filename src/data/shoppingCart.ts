@@ -1,8 +1,8 @@
 import { db } from './db';
 
-import { users, shopping_carts, shopping_cart_items, books } from './db/__generated__/schema';
+import { shopping_carts, shopping_cart_items, books } from './db/__generated__/schema';
 
-const addToShoppingCart = async (
+const addToCart = async (
   cart: shopping_carts,
   book: books
 ): Promise<shopping_cart_items> =>
@@ -27,4 +27,4 @@ const getShoppingCart = async (
     .returning('*')
     .first();
 
-export { createShoppingCart, addToShoppingCart, getShoppingCart };
+export { createShoppingCart, addToCart, getShoppingCart };

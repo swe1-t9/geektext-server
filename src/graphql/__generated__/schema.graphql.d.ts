@@ -114,12 +114,12 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
   }
   User: { // field return type
-    cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
     email_address: string; // EmailAddress!
     first_name: string; // String!
     id: string; // ID!
     last_name: string; // String!
     shipping_information: NexusGenRootTypes['ShippingInformation']; // ShippingInformation!
+    shopping_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
   }
 }
 

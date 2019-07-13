@@ -75,8 +75,6 @@ input SignUpInput {
 
 """A Geektext user."""
 type User {
-  """The user's shipping information"""
-  cart: ShoppingCart!
   email_address: EmailAddress!
   first_name: String!
   id: ID!
@@ -84,4 +82,7 @@ type User {
 
   """The user's shipping information"""
   shipping_information: ShippingInformation!
+
+  """The user's shopping cart"""
+  shopping_cart: ShoppingCart!
 }

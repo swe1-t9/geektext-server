@@ -37,7 +37,7 @@ const SignUp = mutationField('sign_up', {
       ...rest,
       password: hashedPassword
     });
-    await createShoppingCart(id)
+    await createShoppingCart(id);
     return { id };
   }
 });
