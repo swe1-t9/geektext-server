@@ -8,6 +8,7 @@ const Book = objectType({
   definition(t) {
     t.id('id');
     t.string('isbn');
+    // TODO: We shouldn't be returning author_id, but an Author GraphQLObjectType.
     t.id('author_id');
     t.float('price');
     t.string('title');
