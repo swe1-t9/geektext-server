@@ -1,6 +1,6 @@
 import { queryField, inputObjectType, arg } from 'nexus';
 
-import { getBookDetails } from '../../data/bookDetails';
+import { getBookById } from '../../data/book';
 
 const BookDetailsQuery = queryField('book_details', {
   type: 'Book',
@@ -11,7 +11,7 @@ const BookDetailsQuery = queryField('book_details', {
     })
   },
   async resolve(root, { input: { id } }) {
-    return await getBookDetails(id);
+    return await getBookById(id);
   }
 });
 

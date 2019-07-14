@@ -1,7 +1,7 @@
 import { objectType } from 'nexus';
 
 import { getShoppingCartItemByItemId } from '../../data/shoppingCartItem'
-import { getBookById } from '../../data/bookDetails'
+import { getBookById } from '../../data/book'
 
 const ShoppingCartItem = objectType({
   name: 'ShoppingCartItem',
