@@ -20,8 +20,8 @@ const User = objectType({
     t.field('shopping_cart', {
       type: 'ShoppingCart',
       description: "The user's shopping cart",
-      resolve(user) {
-        return getShoppingCartByUserId(user.id);
+      async resolve(user) {
+        return await getShoppingCartByUserId(user.id);
       }
     });
   }

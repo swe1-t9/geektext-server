@@ -26,7 +26,7 @@ const createShoppingCart = async (
     .first();
 }
 
-const getShoppingCartIdByUserId = async (
+const getShoppingCartByUserId = async (
     userid: string
 ): Promise<shopping_carts> =>
     await db('shopping_carts')
@@ -34,13 +34,4 @@ const getShoppingCartIdByUserId = async (
     .where({user_id: userid})
     .first();
 
-const getShoppingCartByUserId = async (
-    userid: string
-): Promise<shopping_carts> => {
-    return await db('shopping_carts')
-    .select('*')
-    .where({user_id: userid})
-    .join('shopping_cart_items', 'shopping_carts.id', 'shopping_cart_items.shopping_cart_id');
-}
-
-export { createShoppingCart, addToShoppingCart, getShoppingCartByUserId, getShoppingCartIdByUserId };
+export { createShoppingCart, addToShoppingCart, getShoppingCartByUserId};

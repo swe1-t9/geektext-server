@@ -1,6 +1,6 @@
 import { mutationField, arg, inputObjectType } from 'nexus';
 
-import { addToShoppingCart, getShoppingCartIdByUserId } from '../../data/shoppingCart';
+import { addToShoppingCart, getShoppingCartByUserId } from '../../data/shoppingCart';
 
 const AddToShoppingCartInput = inputObjectType({
   name: 'AddToShoppingCartInput',
@@ -21,7 +21,7 @@ const AddToShoppingCart = mutationField('add_to_cart', {
     })
   },
   async resolve(root, { input: { user_id, book_id, amount } }) {
-    const cart = await getShoppingCartIdByUserId(user_id);
+    const cart = await getShoppingCartByUserId(user_id);
     const { id } = await addToShoppingCart(cart.id, book_id, amount);
     return { id, amount };
   }
