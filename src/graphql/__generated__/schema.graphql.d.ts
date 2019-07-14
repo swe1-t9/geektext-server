@@ -20,6 +20,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  AddToShoppingCartInput: { // input type
+    amount: number; // Int!
+    book_id: string; // String!
+    user_id: string; // String!
+  }
   BookDetailsInput: { // input type
     id: string; // ID!
   }
@@ -67,12 +72,9 @@ export interface NexusGenRootTypes {
   }
   ShoppingCart: { // root type
     id: string; // ID!
-    user_id: string; // ID!
   }
   ShoppingCartItem: { // root type
     amount: number; // Int!
-    book_id: string; // ID!
-    cart_id: string; // ID!
     id: string; // ID!
   }
   User: { // root type
@@ -94,6 +96,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   LogInInput: NexusGenInputs['LogInInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
@@ -121,6 +124,7 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Mutation: { // field return type
+    add_to_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
     log_in: { id: ID }; // JWT!
     sign_up: { id: ID }; // JWT!
   }
@@ -135,12 +139,11 @@ export interface NexusGenFieldTypes {
   }
   ShoppingCart: { // field return type
     id: string; // ID!
-    user_id: string; // ID!
+    items: NexusGenRootTypes['ShoppingCartItem'][]; // [ShoppingCartItem!]!
   }
   ShoppingCartItem: { // field return type
     amount: number; // Int!
-    book_id: string; // ID!
-    cart_id: string; // ID!
+    book: NexusGenRootTypes['Book']; // Book!
     id: string; // ID!
   }
   User: { // field return type
@@ -155,6 +158,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    add_to_cart: { // args
+      input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
+    }
     log_in: { // args
       input: NexusGenInputs['LogInInput']; // LogInInput!
     }
@@ -176,7 +182,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "BookDetailsInput" | "LogInInput" | "SignUpInput";
+export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 

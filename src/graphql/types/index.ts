@@ -1,4 +1,5 @@
 export * from './User';
+export * from './Book';
 export * from './EmailAddress';
 export * from './PostalCode';
 export * from './Address';
