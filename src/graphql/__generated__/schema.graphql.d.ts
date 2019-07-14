@@ -28,6 +28,11 @@ export interface NexusGenInputs {
   BookDetailsInput: { // input type
     id: string; // ID!
   }
+  EditUserInput: { // input type
+    email: string; // EmailAddress!
+    first_name: string; // String!
+    last_name: string; // String!
+  }
   LogInInput: { // input type
     email: string; // EmailAddress!
     password: string; // SensitiveString!
@@ -98,6 +103,7 @@ export interface NexusGenRootTypes {
 export interface NexusGenAllTypes extends NexusGenRootTypes {
   AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
+  EditUserInput: NexusGenInputs['EditUserInput'];
   LogInInput: NexusGenInputs['LogInInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
 }
@@ -125,6 +131,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     add_to_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
+    edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
     sign_up: { id: ID }; // JWT!
   }
@@ -161,6 +168,9 @@ export interface NexusGenArgTypes {
     add_to_cart: { // args
       input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
     }
+    edit_user: { // args
+      input: NexusGenInputs['EditUserInput']; // EditUserInput!
+    }
     log_in: { // args
       input: NexusGenInputs['LogInInput']; // LogInInput!
     }
@@ -183,6 +193,7 @@ export interface NexusGenInheritedFields {}
 export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
 export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "LogInInput" | "SignUpInput";
+export type NexusGenInputNames = "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 
