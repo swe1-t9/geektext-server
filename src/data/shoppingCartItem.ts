@@ -5,10 +5,10 @@ import { shopping_cart_items } from './db/__generated__/schema';
 const getShoppingCartItemByItemId = async (
   itemid: ID
 ): Promise<shopping_cart_items> => {
-  return await db('shopping_carts')
+  return await db('shopping_cart_items')
     .select('*')
-    .where({ itemid })
-    .join('shopping_cart_items', 'shopping_carts.id', 'shopping_cart_items.cart_id')
+    .where('shopping_cart_items.id', itemid)
+    .join('shopping_carts', 'shopping_carts.id', 'shopping_cart_items.shopping_cart_id')
     .first();
 }
 
@@ -16,7 +16,7 @@ const getShoppingCartItemsByCartId = async (
   cartid: ID
 ): Promise<Array<shopping_cart_items>> => {
   return await db('shopping_cart_items')
-    .where({ cartid })
+    .where({ shopping_cart_id: cartid })
     .returning('*');
 }
 

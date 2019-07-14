@@ -6,26 +6,40 @@ const addToShoppingCart = async (
   cartid: string,
   bookid: string,
   amt: number
-): Promise<shopping_cart_items> =>
-  await db('shopping_cart_items')
-    .insert({cart_id: cartid, book_id: bookid, amount: amt})
-    .returning('*')
-    .first();
+): Promise<shopping_cart_items> => {
+  await db('shopping_cart_items').insert({shopping_cart_id: cartid, book_id: bookid, amount: amt})
+  return await db('shopping_cart_items')
+    .select('*')
+    .where({
+        shopping_cart_id: cartid,
+        book_id: bookid
+    }).first();
+}
 
 const createShoppingCart = async (
     userid: string
-): Promise<shopping_carts> =>
-    await db('shopping_carts')
-    .insert({user_id: userid})
-    .returning('*')
+): Promise<shopping_carts> => {
+    await db('shopping_carts').insert({user_id: userid})
+    return await db('shopping_carts')
+    .select('*')
+    .where({user_id: userid})
     .first();
+}
 
-const getShoppingCart = async (
+const getShoppingCartIdByUserId = async (
     userid: string
 ): Promise<shopping_carts> =>
     await db('shopping_carts')
     .select('*')
-    .where('shopping_carts.user_id', userid)
-    .join('shopping_cart_items', 'shopping_carts.id', 'shopping_cart_items.cart_id');
+    .where({user_id: userid})
+    .first();
 
-export { createShoppingCart, addToShoppingCart, getShoppingCart };
+const getShoppingCartByUserId = async (
+    userid: string
+): Promise<shopping_carts> =>
+    await db('shopping_carts')
+    .select('*')
+    .where({user_id: userid})
+    .join('shopping_cart_items', 'shopping_carts.id', 'shopping_cart_items.shopping_cart_id');
+
+export { createShoppingCart, addToShoppingCart, getShoppingCartByUserId, getShoppingCartIdByUserId };

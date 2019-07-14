@@ -1,6 +1,6 @@
 import { objectType } from 'nexus';
 import { getShippingInformation } from '../../data/shippingInformation';
-import { getShoppingCart } from '../../data/shoppingCart'
+import { getShoppingCartByUserId } from '../../data/shoppingCart'
 
 const User = objectType({
   name: 'User',
@@ -21,7 +21,7 @@ const User = objectType({
       type: 'ShoppingCart',
       description: "The user's shopping cart",
       resolve(user) {
-        return getShoppingCart(user.id);
+        return getShoppingCartByUserId(user.id);
       }
     });
   }
