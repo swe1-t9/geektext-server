@@ -25,4 +25,14 @@ const getUserById = async (id: ID): Promise<users> =>
     .where({ id })
     .first();
 
-export { createUser, getUserByEmail, getUserById };
+const updateUserById = async (id: ID, user: Partial<users>) => {
+  await db('users')
+    .update(user)
+    .where({ id });
+  return await db('users')
+    .select('*')
+    .where({ id })
+    .first();
+};
+
+export { createUser, getUserByEmail, getUserById, updateUserById };

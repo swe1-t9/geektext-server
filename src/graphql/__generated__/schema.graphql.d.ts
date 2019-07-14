@@ -23,6 +23,11 @@ export interface NexusGenInputs {
   BookDetailsInput: { // input type
     id: string; // ID!
   }
+  EditUserInput: { // input type
+    email: string; // EmailAddress!
+    first_name: string; // String!
+    last_name: string; // String!
+  }
   LogInInput: { // input type
     email: string; // EmailAddress!
     password: string; // SensitiveString!
@@ -85,6 +90,7 @@ export interface NexusGenRootTypes {
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
+  EditUserInput: NexusGenInputs['EditUserInput'];
   LogInInput: NexusGenInputs['LogInInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
 }
@@ -111,6 +117,7 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Mutation: { // field return type
+    edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
     sign_up: { id: ID }; // JWT!
   }
@@ -134,6 +141,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    edit_user: { // args
+      input: NexusGenInputs['EditUserInput']; // EditUserInput!
+    }
     log_in: { // args
       input: NexusGenInputs['LogInInput']; // LogInInput!
     }
@@ -155,7 +165,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "User";
 
-export type NexusGenInputNames = "BookDetailsInput" | "LogInInput" | "SignUpInput";
+export type NexusGenInputNames = "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 
