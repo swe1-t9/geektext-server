@@ -13,6 +13,12 @@ type Address {
   region: String
 }
 
+input AddToShoppingCartInput {
+  amount: Int!
+  book_id: String!
+  user_id: String!
+}
+
 """The details of a book."""
 type Book {
   author_id: ID!
@@ -51,6 +57,7 @@ input LogInInput {
 }
 
 type Mutation {
+  add_to_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
   sign_up(input: SignUpInput!): JWT!
@@ -78,6 +85,21 @@ type ShippingInformation {
   shipping_addresses: [Address!]!
 }
 
+"""A shopping cart, holding items to be purchased later."""
+type ShoppingCart {
+  id: ID!
+  items: [ShoppingCartItem!]!
+}
+
+"""An item in a user's shopping cart."""
+type ShoppingCartItem {
+  amount: Int!
+
+  """The book this item represents."""
+  book: Book!
+  id: ID!
+}
+
 input SignUpInput {
   email: EmailAddress!
   first_name: String!
@@ -99,4 +121,7 @@ type User {
 
   """The user's shipping information"""
   shipping_information: ShippingInformation!
+
+  """The user's shopping cart"""
+  shopping_cart: ShoppingCart!
 }

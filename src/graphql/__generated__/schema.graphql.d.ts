@@ -20,6 +20,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  AddToShoppingCartInput: { // input type
+    amount: number; // Int!
+    book_id: string; // String!
+    user_id: string; // String!
+  }
   BookDetailsInput: { // input type
     id: string; // ID!
   }
@@ -70,6 +75,13 @@ export interface NexusGenRootTypes {
     selected_shipping_address_id?: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
   }
+  ShoppingCart: { // root type
+    id: string; // ID!
+  }
+  ShoppingCartItem: { // root type
+    amount: number; // Int!
+    id: string; // ID!
+  }
   User: { // root type
     email: string; // EmailAddress!
     first_name: string; // String!
@@ -89,6 +101,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   EditUserInput: NexusGenInputs['EditUserInput'];
   LogInInput: NexusGenInputs['LogInInput'];
@@ -117,6 +130,7 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Mutation: { // field return type
+    add_to_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
     edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
     sign_up: { id: ID }; // JWT!
@@ -130,17 +144,30 @@ export interface NexusGenFieldTypes {
     selected_shipping_address_id: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
   }
+  ShoppingCart: { // field return type
+    id: string; // ID!
+    items: NexusGenRootTypes['ShoppingCartItem'][]; // [ShoppingCartItem!]!
+  }
+  ShoppingCartItem: { // field return type
+    amount: number; // Int!
+    book: NexusGenRootTypes['Book']; // Book!
+    id: string; // ID!
+  }
   User: { // field return type
     email: string; // EmailAddress!
     first_name: string; // String!
     id: string; // ID!
     last_name: string; // String!
     shipping_information: NexusGenRootTypes['ShippingInformation']; // ShippingInformation!
+    shopping_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
+    add_to_cart: { // args
+      input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
+    }
     edit_user: { // args
       input: NexusGenInputs['EditUserInput']; // EditUserInput!
     }
@@ -163,9 +190,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "User";
+export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
+export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 
