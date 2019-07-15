@@ -57,7 +57,7 @@ input LogInInput {
 }
 
 type Mutation {
-  add_to_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
+  add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
   sign_up(input: SignUpInput!): JWT!
