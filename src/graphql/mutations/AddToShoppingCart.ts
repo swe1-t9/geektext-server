@@ -12,7 +12,7 @@ const AddToShoppingCartInput = inputObjectType({
   }
 });
 
-const AddToShoppingCart = mutationField('add_to_cart', {
+const AddToShoppingCart = mutationField('add_to_shopping_cart', {
   type: 'ShoppingCartItem',
   args: {
     input: arg({

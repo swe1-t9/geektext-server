@@ -130,7 +130,7 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Mutation: { // field return type
-    add_to_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
+    add_to_shopping_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
     edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
     sign_up: { id: ID }; // JWT!
@@ -165,7 +165,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
-    add_to_cart: { // args
+    add_to_shopping_cart: { // args
       input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
     }
     edit_user: { // args
