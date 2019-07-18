@@ -25,7 +25,7 @@ const getUserById = async (id: ID): Promise<users> =>
     .where({ id })
     .first();
 
-const updateUserById = async (id: ID, user: Partial<users>) => {
+const updateUserById = async (id: ID, user: Partial<users>): Promise<users> => {
   await db('users')
     .update(user)
     .where({ id });

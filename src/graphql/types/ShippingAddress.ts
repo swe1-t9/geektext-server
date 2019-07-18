@@ -1,8 +1,8 @@
 import { objectType } from 'nexus';
 
-const Address = objectType({
-  name: 'Address',
-  description: 'A physical address.',
+const ShippingAddress = objectType({
+  name: 'ShippingAddress',
+  description: 'A physical address to ship to.',
   definition(t) {
     t.id('id');
     t.string('address_line_1');
@@ -10,8 +10,9 @@ const Address = objectType({
     t.string('address_line_3', { nullable: true });
     t.string('city');
     t.string('region', { nullable: true });
+    t.boolean('is_default');
     t.postalCode('postal_code');
   }
 });
 
-export { Address };
+export { ShippingAddress };

@@ -1,6 +1,6 @@
 import { objectType } from 'nexus';
-import { getShippingInformation } from '../../data/shippingInformation';
-import { getShoppingCartByUserId } from '../../data/shoppingCart'
+import { getShippingAddressesByUserId } from '../../data/shippingAddress';
+import { getShoppingCartByUserId } from '../../data/shoppingCart';
 
 const User = objectType({
   name: 'User',
@@ -10,11 +10,11 @@ const User = objectType({
     t.emailAddress('email');
     t.string('first_name');
     t.string('last_name');
-    t.field('shipping_information', {
-      type: 'ShippingInformation',
-      description: `The user's shipping information`,
+    t.list.field('shipping_addresses', {
+      type: 'ShippingAddress',
+      description: `The user's shipping addresses`,
       resolve(user) {
-        return getShippingInformation(user.id);
+        return getShippingAddressesByUserId(user.id);
       }
     });
     t.field('shopping_cart', {

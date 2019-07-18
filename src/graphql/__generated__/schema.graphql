@@ -2,13 +2,12 @@
 ### Do not make changes to this file directly
 
 
-"""A physical address."""
-type Address {
+input AddShippingAddressInput {
   address_line_1: String!
   address_line_2: String
   address_line_3: String
   city: String!
-  id: ID!
+  country: String!
   postal_code: PostalCode!
   region: String
 }
@@ -57,6 +56,7 @@ input LogInInput {
 }
 
 type Mutation {
+  add_shipping_address(input: AddShippingAddressInput!): ShippingAddress!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
@@ -79,10 +79,16 @@ type Query {
 """A string whose value is sensitive and should not be exposed."""
 scalar SensitiveString
 
-"""The shipping information of a user"""
-type ShippingInformation {
-  selected_shipping_address_id: ID
-  shipping_addresses: [Address!]!
+"""A physical address to ship to."""
+type ShippingAddress {
+  address_line_1: String!
+  address_line_2: String
+  address_line_3: String
+  city: String!
+  id: ID!
+  is_default: Boolean!
+  postal_code: PostalCode!
+  region: String
 }
 
 """A shopping cart, holding items to be purchased later."""
@@ -119,8 +125,8 @@ type User {
   id: ID!
   last_name: String!
 
-  """The user's shipping information"""
-  shipping_information: ShippingInformation!
+  """The user's shipping addresses"""
+  shipping_addresses: [ShippingAddress!]!
 
   """The user's shopping cart"""
   shopping_cart: ShoppingCart!
