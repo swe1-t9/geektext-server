@@ -30,6 +30,16 @@ type Query {
   hello_world: String!
 }
 
+"""User comment and star rating (review) for a book"""
+type Reviews {
+  body: String!
+  book_id: ID!
+  id: ID!
+  rating: Int!
+  title: String!
+  user_id: ID!
+}
+
 """The shipping information of a user"""
 type ShippingInformation {
   selected_shipping_address_id: ID

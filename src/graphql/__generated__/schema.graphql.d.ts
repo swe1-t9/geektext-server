@@ -33,6 +33,14 @@ export interface NexusGenRootTypes {
     region?: string | null; // String
   }
   Query: {};
+  Reviews: { // root type
+    body: string; // String!
+    book_id: string; // ID!
+    id: string; // ID!
+    rating: number; // Int!
+    title: string; // String!
+    user_id: string; // ID!
+  }
   ShippingInformation: { // root type
     selected_shipping_address_id?: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
@@ -68,6 +76,14 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     hello_world: string; // String!
   }
+  Reviews: { // field return type
+    body: string; // String!
+    book_id: string; // ID!
+    id: string; // ID!
+    rating: number; // Int!
+    title: string; // String!
+    user_id: string; // ID!
+  }
   ShippingInformation: { // field return type
     selected_shipping_address_id: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
@@ -89,7 +105,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Query" | "ShippingInformation" | "User";
+export type NexusGenObjectNames = "Address" | "Query" | "Reviews" | "ShippingInformation" | "User";
 
 export type NexusGenInputNames = never;
 
