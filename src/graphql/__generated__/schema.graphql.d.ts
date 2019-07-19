@@ -20,11 +20,6 @@ declare global {
 }
 
 export interface NexusGenInputs {
-<<<<<<< HEAD
-  BookDetailsInput: { // input type
-    id: string; // ID!
-  }
-=======
   AddToShoppingCartInput: { // input type
     amount: number; // Int!
     book_id: string; // String!
@@ -42,7 +37,6 @@ export interface NexusGenInputs {
     email: string; // EmailAddress!
     password: string; // SensitiveString!
   }
->>>>>>> 6b3d67e6e4022da88fa895ab719d72382f9d2722
   SignUpInput: { // input type
     email: string; // EmailAddress!
     first_name: string; // String!
@@ -107,14 +101,10 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-<<<<<<< HEAD
-  BookDetailsInput: NexusGenInputs['BookDetailsInput'];
-=======
   AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   EditUserInput: NexusGenInputs['EditUserInput'];
   LogInInput: NexusGenInputs['LogInInput'];
->>>>>>> 6b3d67e6e4022da88fa895ab719d72382f9d2722
   SignUpInput: NexusGenInputs['SignUpInput'];
 }
 
@@ -200,15 +190,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-<<<<<<< HEAD
-export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "User";
-
-export type NexusGenInputNames = "BookDetailsInput" | "SignUpInput";
-=======
 export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
 export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
->>>>>>> 6b3d67e6e4022da88fa895ab719d72382f9d2722
 
 export type NexusGenEnumNames = never;
 
