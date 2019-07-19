@@ -1,6 +1,11 @@
+import { hash } from 'bcrypt';
 import { mutationField, arg, inputObjectType } from 'nexus';
+import nullthrows from 'nullthrows';
 
 import { createUser } from '../../data/user';
+import { createShoppingCart } from '../../data/shoppingCart';
+
+const { BCRYPT_SALT_ROUNDS } = process.env;
 
 const SignUpInput = inputObjectType({
   name: 'SignUpInput',
@@ -23,10 +28,16 @@ const SignUp = mutationField('sign_up', {
       required: true
     })
   },
-  async resolve(root, args) {
+  async resolve(root, { input: { password, ...rest } }) {
+    const hashedPassword = await hash(
+      password,
+      parseInt(nullthrows(BCRYPT_SALT_ROUNDS))
+    );
     const { id } = await createUser({
-      ...args.input
+      ...rest,
+      password: hashedPassword
     });
+    await createShoppingCart(id);
     return { id };
   }
 });

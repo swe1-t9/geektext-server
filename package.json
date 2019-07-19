@@ -8,23 +8,26 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "dev": "tsnd --no-notify --transpileOnly --respawn ./src/index.ts ",
+    "nexus": "tsnd --no-notify --transpileOnly --project ./scripts/tsconfig.json ./scripts/codegen/nexus.ts",
+    "dev": "tsnd --no-notify --transpileOnly --respawn ./src/index.ts",
     "migrate": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:latest",
     "rollback": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:rollback",
     "seed": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js seed:run"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc -p ."
+      "pre-commit": "yarn nexus && tsc -p ."
     }
   },
   "dependencies": {
     "@okgrow/graphql-scalars": "^0.4.5",
+    "@types/express-jwt": "^0.0.42",
     "@types/jsonwebtoken": "^8.3.2",
     "apollo-server-express": "^2.5.0",
     "bcrypt": "^3.0.6",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
+    "express-jwt": "^5.3.1",
     "graphql": "^14.3.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.18.0",

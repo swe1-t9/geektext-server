@@ -15,6 +15,9 @@ exports.up = async function(knex, Promise) {
         .notNull()
         .references('id')
         .inTable('books');
+      table
+        .integer('amount')
+        .notNull();
       table.dateTime('created_at').defaultTo(knex.fn.now());
     });
   };
