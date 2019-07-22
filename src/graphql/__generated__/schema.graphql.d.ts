@@ -71,14 +71,6 @@ export interface NexusGenRootTypes {
   }
   Mutation: {};
   Query: {};
-  Reviews: { // root type
-    body: string; // String!
-    book_id: string; // ID!
-    id: string; // ID!
-    rating: number; // Int!
-    title: string; // String!
-    user_id: string; // ID!
-  }
   ShippingInformation: { // root type
     selected_shipping_address_id?: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
@@ -147,14 +139,6 @@ export interface NexusGenFieldTypes {
     book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
     viewer: NexusGenRootTypes['User']; // User!
-  }
-  Reviews: { // field return type
-    body: string; // String!
-    book_id: string; // ID!
-    id: string; // ID!
-    rating: number; // Int!
-    title: string; // String!
-    user_id: string; // ID!
   }
   ShippingInformation: { // field return type
     selected_shipping_address_id: string | null; // ID
