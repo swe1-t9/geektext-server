@@ -47,10 +47,17 @@ export interface NexusGenInputs {
     password: string; // SensitiveString!
   }
   SignUpInput: { // input type
+    address_line_1: string; // String!
+    address_line_2?: string | null; // String
+    address_line_3?: string | null; // String
+    city: string; // String!
+    country: string; // String!
     email: string; // EmailAddress!
     first_name: string; // String!
     last_name: string; // String!
     password: string; // SensitiveString!
+    postal_code: string; // PostalCode!
+    region?: string | null; // String
   }
 }
 

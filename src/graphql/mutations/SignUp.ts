@@ -4,6 +4,7 @@ import nullthrows from 'nullthrows';
 
 import { createUser } from '../../data/user';
 import { createShoppingCart } from '../../data/shoppingCart';
+import { createShippingAddress } from '../../data/shippingAddress';
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
 
@@ -17,6 +18,13 @@ const SignUpInput = inputObjectType({
       required: true
     });
     t.field('email', { type: 'EmailAddress', required: true });
+    t.string('address_line_1', { required: true });
+    t.string('address_line_2');
+    t.string('address_line_3');
+    t.string('city', { required: true });
+    t.string('region');
+    t.string('country', { required: true });
+    t.field('postal_code', { type: 'PostalCode', required: true });
   }
 });
 
@@ -38,6 +46,14 @@ const SignUp = mutationField('sign_up', {
       password: hashedPassword
     });
     await createShoppingCart(id);
+    await createShippingAddress({
+      ...rest,
+      user_id: id,
+      address_line_2: rest.address_line_2 || null,
+      address_line_3: rest.address_line_3 || null,
+      region: rest.region || null,
+      is_default: true
+    });
     return { id };
   }
 });

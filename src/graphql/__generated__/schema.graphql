@@ -107,10 +107,17 @@ type ShoppingCartItem {
 }
 
 input SignUpInput {
+  address_line_1: String!
+  address_line_2: String
+  address_line_3: String
+  city: String!
+  country: String!
   email: EmailAddress!
   first_name: String!
   last_name: String!
   password: SensitiveString!
+  postal_code: PostalCode!
+  region: String
 }
 
 """
