@@ -8,7 +8,7 @@ const getShippingInformation = async (
     .select('*')
     .from('shipping_addresses')
     .where('user_id', userId)
-    .leftJoin('addresses', 'address_id', 'id');
+    .innerJoin('addresses', 'address_id', 'id');
   const shippingInformation: NexusGen['fieldTypes']['ShippingInformation'] = {
     selected_shipping_address_id: null,
     shipping_addresses: []

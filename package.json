@@ -8,33 +8,42 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "dev": "tsnd --no-notify --transpileOnly --respawn ./src/index.ts ",
+    "nexus": "tsnd --no-notify --transpileOnly --project ./scripts/tsconfig.json ./scripts/codegen/nexus.ts",
+    "dev": "tsnd --no-notify --transpileOnly --respawn ./src/index.ts",
     "migrate": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:latest",
-    "rollback": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:rollback"
+    "rollback": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js migrate:rollback",
+    "seed": "./node_modules/.bin/knex --knexfile=./scripts/db/knexfile.js seed:run"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc -p ."
+      "pre-commit": "yarn nexus && tsc -p ."
     }
   },
   "dependencies": {
     "@okgrow/graphql-scalars": "^0.4.5",
+    "@types/express-jwt": "^0.0.42",
+    "@types/jsonwebtoken": "^8.3.2",
     "apollo-server-express": "^2.5.0",
+    "bcrypt": "^3.0.6",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
+    "express-jwt": "^5.3.1",
     "graphql": "^14.3.0",
-    "knex": "^0.16.5",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.18.0",
     "nexus": "^0.11.7",
     "nullthrows": "^1.1.1",
-    "pg": "^7.11.0"
+    "pg": "^7.11.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.2.0",
     "husky": "^2.2.0",
     "schemats": "^3.0.3",
     "ts-node": "^8.1.0",
     "ts-node-dev": "^1.0.0-pre.39",
-    "typescript": "~3.1.0"
+    "typescript": "^3.5.2"
   }
 }

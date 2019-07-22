@@ -13,11 +13,55 @@ type Address {
   region: String
 }
 
+input AddToShoppingCartInput {
+  amount: Int!
+  book_id: String!
+  user_id: String!
+}
+
+"""The details of a book."""
+type Book {
+  author_id: ID!
+  cover: URL!
+  description: String!
+  genre: String!
+  id: ID!
+  isbn: String!
+  price: Float!
+  publish_year: Int!
+  title: String!
+}
+
+input BookDetailsInput {
+  id: ID!
+}
+
+input EditUserInput {
+  email: EmailAddress!
+  first_name: String!
+  last_name: String!
+}
+
 """
 A field whose value conforms to the standard internet email address format as
 specified in RFC822: https://www.w3.org/Protocols/rfc822/.
 """
 scalar EmailAddress
+
+"""JWT token pre-signed by server when sent out"""
+scalar JWT
+
+input LogInInput {
+  email: EmailAddress!
+  password: SensitiveString!
+}
+
+type Mutation {
+  add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
+  edit_user(input: EditUserInput!): User!
+  log_in(input: LogInInput!): JWT!
+  sign_up(input: SignUpInput!): JWT!
+}
 
 """
 A field whose value conforms to the standard postal code formats for United
@@ -27,18 +71,13 @@ Spain, Denmark, Sweden, Belgium or India.
 scalar PostalCode
 
 type Query {
+  book_details(input: BookDetailsInput!): Book!
   hello_world: String!
+  viewer: User!
 }
 
-"""User comment and star rating (review) for a book"""
-type Reviews {
-  body: String!
-  book_id: ID!
-  id: ID!
-  rating: Int!
-  title: String!
-  user_id: ID!
-}
+"""A string whose value is sensitive and should not be exposed."""
+scalar SensitiveString
 
 """The shipping information of a user"""
 type ShippingInformation {
@@ -46,13 +85,43 @@ type ShippingInformation {
   shipping_addresses: [Address!]!
 }
 
+"""A shopping cart, holding items to be purchased later."""
+type ShoppingCart {
+  id: ID!
+  items: [ShoppingCartItem!]!
+}
+
+"""An item in a user's shopping cart."""
+type ShoppingCartItem {
+  amount: Int!
+
+  """The book this item represents."""
+  book: Book!
+  id: ID!
+}
+
+input SignUpInput {
+  email: EmailAddress!
+  first_name: String!
+  last_name: String!
+  password: SensitiveString!
+}
+
+"""
+A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt.
+"""
+scalar URL
+
 """A Geektext user."""
 type User {
-  email_address: EmailAddress!
+  email: EmailAddress!
   first_name: String!
   id: ID!
   last_name: String!
 
   """The user's shipping information"""
   shipping_information: ShippingInformation!
+
+  """The user's shopping cart"""
+  shopping_cart: ShoppingCart!
 }

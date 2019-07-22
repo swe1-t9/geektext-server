@@ -8,7 +8,10 @@ import { core } from "nexus"
 declare global {
   interface NexusGenCustomDefinitionMethods<TypeName extends string> {
     emailAddress<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "EmailAddress";
+    jwt<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "JWT";
     postalCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "PostalCode";
+    sensitiveString<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "SensitiveString";
+    url<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "URL";
   }
 }
 
@@ -17,6 +20,29 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  AddToShoppingCartInput: { // input type
+    amount: number; // Int!
+    book_id: string; // String!
+    user_id: string; // String!
+  }
+  BookDetailsInput: { // input type
+    id: string; // ID!
+  }
+  EditUserInput: { // input type
+    email: string; // EmailAddress!
+    first_name: string; // String!
+    last_name: string; // String!
+  }
+  LogInInput: { // input type
+    email: string; // EmailAddress!
+    password: string; // SensitiveString!
+  }
+  SignUpInput: { // input type
+    email: string; // EmailAddress!
+    first_name: string; // String!
+    last_name: string; // String!
+    password: string; // SensitiveString!
+  }
 }
 
 export interface NexusGenEnums {
@@ -32,6 +58,18 @@ export interface NexusGenRootTypes {
     postal_code: string; // PostalCode!
     region?: string | null; // String
   }
+  Book: { // root type
+    author_id: string; // ID!
+    cover: string; // URL!
+    description: string; // String!
+    genre: string; // String!
+    id: string; // ID!
+    isbn: string; // String!
+    price: number; // Float!
+    publish_year: number; // Int!
+    title: string; // String!
+  }
+  Mutation: {};
   Query: {};
   Reviews: { // root type
     body: string; // String!
@@ -45,8 +83,15 @@ export interface NexusGenRootTypes {
     selected_shipping_address_id?: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
   }
+  ShoppingCart: { // root type
+    id: string; // ID!
+  }
+  ShoppingCartItem: { // root type
+    amount: number; // Int!
+    id: string; // ID!
+  }
   User: { // root type
-    email_address: string; // EmailAddress!
+    email: string; // EmailAddress!
     first_name: string; // String!
     id: string; // ID!
     last_name: string; // String!
@@ -57,10 +102,18 @@ export interface NexusGenRootTypes {
   Boolean: boolean;
   ID: string;
   EmailAddress: string;
+  JWT: { id: ID };
   PostalCode: string;
+  SensitiveString: string;
+  URL: string;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
+  BookDetailsInput: NexusGenInputs['BookDetailsInput'];
+  EditUserInput: NexusGenInputs['EditUserInput'];
+  LogInInput: NexusGenInputs['LogInInput'];
+  SignUpInput: NexusGenInputs['SignUpInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -73,8 +126,27 @@ export interface NexusGenFieldTypes {
     postal_code: string; // PostalCode!
     region: string | null; // String
   }
+  Book: { // field return type
+    author_id: string; // ID!
+    cover: string; // URL!
+    description: string; // String!
+    genre: string; // String!
+    id: string; // ID!
+    isbn: string; // String!
+    price: number; // Float!
+    publish_year: number; // Int!
+    title: string; // String!
+  }
+  Mutation: { // field return type
+    add_to_shopping_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
+    edit_user: NexusGenRootTypes['User']; // User!
+    log_in: { id: ID }; // JWT!
+    sign_up: { id: ID }; // JWT!
+  }
   Query: { // field return type
+    book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
+    viewer: NexusGenRootTypes['User']; // User!
   }
   Reviews: { // field return type
     body: string; // String!
@@ -88,16 +160,45 @@ export interface NexusGenFieldTypes {
     selected_shipping_address_id: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
   }
+  ShoppingCart: { // field return type
+    id: string; // ID!
+    items: NexusGenRootTypes['ShoppingCartItem'][]; // [ShoppingCartItem!]!
+  }
+  ShoppingCartItem: { // field return type
+    amount: number; // Int!
+    book: NexusGenRootTypes['Book']; // Book!
+    id: string; // ID!
+  }
   User: { // field return type
-    email_address: string; // EmailAddress!
+    email: string; // EmailAddress!
     first_name: string; // String!
     id: string; // ID!
     last_name: string; // String!
     shipping_information: NexusGenRootTypes['ShippingInformation']; // ShippingInformation!
+    shopping_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    add_to_shopping_cart: { // args
+      input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
+    }
+    edit_user: { // args
+      input: NexusGenInputs['EditUserInput']; // EditUserInput!
+    }
+    log_in: { // args
+      input: NexusGenInputs['LogInInput']; // LogInInput!
+    }
+    sign_up: { // args
+      input: NexusGenInputs['SignUpInput']; // SignUpInput!
+    }
+  }
+  Query: {
+    book_details: { // args
+      input: NexusGenInputs['BookDetailsInput']; // BookDetailsInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -105,15 +206,15 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Query" | "Reviews" | "ShippingInformation" | "User";
+export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "PostalCode" | "String";
+export type NexusGenScalarNames = "Boolean" | "EmailAddress" | "Float" | "ID" | "Int" | "JWT" | "PostalCode" | "SensitiveString" | "String" | "URL";
 
 export type NexusGenUnionNames = never;
 

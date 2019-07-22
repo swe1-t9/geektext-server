@@ -1,6 +1,12 @@
+import { Request } from 'express';
+
 declare global {
-  type ID = string | number;
   type Nullable<T> = T | null | undefined;
+  type ID = string;
 }
 
-export { ID, Nullable };
+interface RequestWithContext extends Request {
+  user?: { id: ID };
+}
+
+export { ID, Nullable, RequestWithContext };

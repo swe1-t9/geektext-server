@@ -8,7 +8,6 @@ exports.up = async function(knex, Promise) {
     table
       .uuid('user_id')
       .notNull()
-      .unique()
       .references('id')
       .inTable('users');
     table
