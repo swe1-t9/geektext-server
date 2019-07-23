@@ -23,7 +23,6 @@ export interface NexusGenInputs {
   AddToShoppingCartInput: { // input type
     amount: number; // Int!
     book_id: string; // String!
-    user_id: string; // String!
   }
   BookDetailsInput: { // input type
     id: string; // ID!
