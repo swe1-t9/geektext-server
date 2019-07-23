@@ -13,6 +13,11 @@ type Address {
   region: String
 }
 
+input AddToSavedCartInput {
+  amount: Int!
+  book_id: String!
+}
+
 input AddToShoppingCartInput {
   amount: Int!
   book_id: String!
@@ -56,9 +61,11 @@ input LogInInput {
 }
 
 type Mutation {
+  add_to_saved_cart(input: AddToSavedCartInput!): SavedCartItem!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
+  save_shopping_cart: SavedCart!
   sign_up(input: SignUpInput!): JWT!
 }
 

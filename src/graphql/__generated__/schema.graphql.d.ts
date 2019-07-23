@@ -20,6 +20,10 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  AddToSavedCartInput: { // input type
+    amount: number; // Int!
+    book_id: string; // String!
+  }
   AddToShoppingCartInput: { // input type
     amount: number; // Int!
     book_id: string; // String!
@@ -107,6 +111,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  AddToSavedCartInput: NexusGenInputs['AddToSavedCartInput'];
   AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   EditUserInput: NexusGenInputs['EditUserInput'];
@@ -136,9 +141,11 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Mutation: { // field return type
+    add_to_saved_cart: NexusGenRootTypes['SavedCartItem']; // SavedCartItem!
     add_to_shopping_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
     edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
+    save_shopping_cart: NexusGenRootTypes['SavedCart']; // SavedCart!
     sign_up: { id: ID }; // JWT!
   }
   Query: { // field return type
@@ -181,6 +188,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    add_to_saved_cart: { // args
+      input: NexusGenInputs['AddToSavedCartInput']; // AddToSavedCartInput!
+    }
     add_to_shopping_cart: { // args
       input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
     }
@@ -208,7 +218,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "SavedCart" | "SavedCartItem" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
+export type NexusGenInputNames = "AddToSavedCartInput" | "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
 
 export type NexusGenEnumNames = never;
 

@@ -1,6 +1,6 @@
 import { db } from './db';
 
-import { shopping_carts, shopping_cart_items, saved_carts, saved_cart_items} from './db/__generated__/schema';
+import { shopping_cart_items, saved_carts, saved_cart_items} from './db/__generated__/schema';
 
 const addToSavedCart = async (
     savedcartid: string,
@@ -12,7 +12,7 @@ const addToSavedCart = async (
     return await db('saved_cart_items')
       .select('*')
       .where({
-          shopping_cart_id: savedcartid,
+          saved_cart_id: savedcartid,
           book_id: bookid
       })
       .first();
