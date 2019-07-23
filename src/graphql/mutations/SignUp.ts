@@ -3,7 +3,8 @@ import { mutationField, arg, inputObjectType } from 'nexus';
 import nullthrows from 'nullthrows';
 
 import { createUser } from '../../data/user';
-import { createShoppingCart, createSavedCart } from '../../data/shoppingCart';
+import { createShoppingCart } from '../../data/shoppingCart';
+import { createSavedCart } from '../../data/savedCart';
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
 

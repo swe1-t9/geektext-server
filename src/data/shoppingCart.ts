@@ -1,19 +1,36 @@
 import { db } from './db';
 
-import { shopping_carts, shopping_cart_items, saved_carts} from './db/__generated__/schema';
+import { shopping_carts, shopping_cart_items, saved_carts, saved_cart_items} from './db/__generated__/schema';
 
 const addToShoppingCart = async (
   cartid: string,
   bookid: string,
   amt: number
 ): Promise<shopping_cart_items> => {
-  await db('shopping_cart_items').insert({shopping_cart_id: cartid, book_id: bookid, amount: amt})
+  await db('shopping_cart_items')
+  .insert({shopping_cart_id: cartid, book_id: bookid, amount: amt})
   return await db('shopping_cart_items')
     .select('*')
     .where({
         shopping_cart_id: cartid,
         book_id: bookid
-    }).first();
+    })
+    .first();
+}
+
+const removeFromShoppingCart = async (
+    itemid: string,
+    cartid: string
+  ): Promise<shopping_cart_items> => {
+    await db('shopping_cart_items')
+    .where({id: itemid})
+    .del()
+    return await db('shopping_cart_items')
+      .select('*')
+      .where({
+          shopping_cart_id: cartid
+      })
+      .returning('*');
 }
 
 const createShoppingCart = async (
@@ -21,16 +38,6 @@ const createShoppingCart = async (
 ): Promise<shopping_carts> => {
     await db('shopping_carts').insert({user_id: userid})
     return await db('shopping_carts')
-    .select('*')
-    .where({user_id: userid})
-    .first();
-}
-
-const createSavedCart = async (
-    userid: string
-): Promise<saved_carts> => {
-    await db('saved_carts').insert({user_id: userid})
-    return await db('saved_carts')
     .select('*')
     .where({user_id: userid})
     .first();
@@ -44,14 +51,7 @@ const getShoppingCartByUserId = async (
     .where({user_id: userid})
     .first();
 
-const getSavedCartByUserId = async (
-        userid: string
-    ): Promise<saved_carts> =>
-        await db('saved_carts')
-        .select('*')
-        .where({user_id: userid})
-        .first();
-
+// moved all the items in a user's shopping cart to their saved cart
 const saveShoppingCart = async (
     userid: string
 ): Promise<saved_carts> => {
@@ -89,4 +89,4 @@ const saveShoppingCart = async (
 }
 
 
-export { createShoppingCart, createSavedCart, addToShoppingCart, getShoppingCartByUserId, getSavedCartByUserId, saveShoppingCart};
+export { createShoppingCart, removeFromShoppingCart, addToShoppingCart, getShoppingCartByUserId, saveShoppingCart};
