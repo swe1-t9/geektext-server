@@ -16,7 +16,6 @@ type Address {
 input AddToShoppingCartInput {
   amount: Int!
   book_id: String!
-  user_id: String!
 }
 
 """The details of a book."""
