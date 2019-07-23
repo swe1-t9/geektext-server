@@ -65,6 +65,7 @@ type Mutation {
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
+  remove_from_shopping_cart(input: RemoveFromShoppingCartInput!): ShoppingCart!
   save_shopping_cart: SavedCart!
   sign_up(input: SignUpInput!): JWT!
 }
@@ -80,6 +81,10 @@ type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
   viewer: User!
+}
+
+input RemoveFromShoppingCartInput {
+  item_id: String!
 }
 
 """A list of items the user has saved for later."""

@@ -1,6 +1,6 @@
 import { db } from './db';
 
-import { shopping_carts, shopping_cart_items, saved_carts, saved_cart_items} from './db/__generated__/schema';
+import { shopping_carts, shopping_cart_items, saved_carts} from './db/__generated__/schema';
 
 const addToShoppingCart = async (
   cartid: string,
@@ -16,21 +16,19 @@ const addToShoppingCart = async (
         book_id: bookid
     })
     .first();
-}
+} 
 
 const removeFromShoppingCart = async (
-    itemid: string,
-    cartid: string
+    itemid: string
   ): Promise<shopping_cart_items> => {
+    const item = await db('shopping_cart_items')
+    .select('*')
+    .where({id: itemid})
+    .first();
     await db('shopping_cart_items')
     .where({id: itemid})
-    .del()
-    return await db('shopping_cart_items')
-      .select('*')
-      .where({
-          shopping_cart_id: cartid
-      })
-      .returning('*');
+    .del();
+    return item;
 }
 
 const createShoppingCart = async (
