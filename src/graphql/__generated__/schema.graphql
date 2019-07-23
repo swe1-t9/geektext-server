@@ -65,6 +65,7 @@ type Mutation {
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
+  remove_from_saved_cart(input: RemoveFromSavedCartInput!): SavedCart!
   remove_from_shopping_cart(input: RemoveFromShoppingCartInput!): ShoppingCart!
   save_shopping_cart: SavedCart!
   sign_up(input: SignUpInput!): JWT!
@@ -81,6 +82,10 @@ type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
   viewer: User!
+}
+
+input RemoveFromSavedCartInput {
+  item_id: String!
 }
 
 input RemoveFromShoppingCartInput {

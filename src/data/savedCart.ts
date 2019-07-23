@@ -19,18 +19,16 @@ const addToSavedCart = async (
 }
 
 const removeFromSavedCart = async (
-    itemid: string,
-    savedcartid: string
+    itemid: string
   ): Promise<saved_cart_items> => {
+    const item = await db('saved_cart_items')
+    .select('*')
+    .where({id: itemid})
+    .first();
     await db('saved_cart_items')
     .where({id: itemid})
-    .del()
-    return await db('saved_cart_items')
-      .select('*')
-      .where({
-          saved_cart_id: savedcartid
-      })
-      .returning('*');
+    .del();
+    return item;
 }
 
 const createSavedCart = async (

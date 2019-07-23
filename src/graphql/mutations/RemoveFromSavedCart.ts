@@ -2,20 +2,20 @@ import { AuthenticationError } from 'apollo-server-core';
 import { mutationField, arg, inputObjectType } from 'nexus';
 
 import { Context, isAuthenticated } from '../context/Context';
-import { removeFromShoppingCart, getShoppingCartByUserId } from '../../data/shoppingCart';
+import { removeFromSavedCart, getSavedCartByUserId } from '../../data/savedCart';
 
-const RemoveFromShoppingCartInput = inputObjectType({
-  name: 'RemoveFromShoppingCartInput',
+const RemoveFromSavedCartInput = inputObjectType({
+  name: 'RemoveFromSavedCartInput',
   definition(t) {
     t.string('item_id', {required: true});
   }
 });
 
-const RemoveFromShoppingCart = mutationField('remove_from_shopping_cart', {
-  type: 'ShoppingCart',
+const RemoveFromSavedCart = mutationField('remove_from_saved_cart', {
+  type: 'SavedCart',
   args: {
     input: arg({
-      type: 'RemoveFromShoppingCartInput',
+      type: 'RemoveFromSavedCartInput',
       required: true
     })
   },
@@ -23,10 +23,10 @@ const RemoveFromShoppingCart = mutationField('remove_from_shopping_cart', {
     if (!isAuthenticated(ctx)) {
       throw new AuthenticationError('Unauthenticated');
     }
-    await removeFromShoppingCart(item_id);
-    const { id } = await getShoppingCartByUserId(ctx.viewer.id)
+    await removeFromSavedCart(item_id);
+    const { id } = await getSavedCartByUserId(ctx.viewer.id)
     return { id }
   }
 });
 
-export { RemoveFromShoppingCartInput, RemoveFromShoppingCart };
+export { RemoveFromSavedCartInput, RemoveFromSavedCart };
