@@ -3,7 +3,7 @@ import { mutationField, arg, inputObjectType } from 'nexus';
 import nullthrows from 'nullthrows';
 
 import { createUser } from '../../data/user';
-import { createShoppingCart } from '../../data/shoppingCart';
+import { createShoppingCart, createSavedCart } from '../../data/shoppingCart';
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
 
@@ -38,6 +38,7 @@ const SignUp = mutationField('sign_up', {
       password: hashedPassword
     });
     await createShoppingCart(id);
+    await createSavedCart(id);
     return { id };
   }
 });
