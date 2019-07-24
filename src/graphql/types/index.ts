@@ -10,3 +10,4 @@ export * from './SensitiveString';
 export * from './JWT';
 export * from './Book';
 export * from './URL';
+export * from './Author';

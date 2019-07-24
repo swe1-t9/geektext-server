@@ -19,9 +19,18 @@ input AddToShoppingCartInput {
   user_id: String!
 }
 
+"""Author details"""
+type Author {
+  bio: String!
+  books: [Book!]!
+  first_name: String!
+  id: ID!
+  last_name: String!
+}
+
 """The details of a book."""
 type Book {
-  author_id: ID!
+  author: Author!
   cover: URL!
   description: String!
   genre: String!
@@ -73,6 +82,7 @@ scalar PostalCode
 type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
+  sorted_books(input: SortedBooksInput!): [Book!]!
   viewer: User!
 }
 
@@ -105,6 +115,11 @@ input SignUpInput {
   first_name: String!
   last_name: String!
   password: SensitiveString!
+}
+
+input SortedBooksInput {
+  field_to_sort_by: String!
+  sort_direction: String!
 }
 
 """
