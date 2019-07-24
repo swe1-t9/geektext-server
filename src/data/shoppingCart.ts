@@ -86,5 +86,37 @@ const saveShoppingCart = async (
     .first()
 }
 
+// moved all the items in a user's shopping cart to their saved cart
+const checkoutUser = async (
+    userid: string
+): Promise<shopping_carts> => {
+    // first, fetch the cart id from the user id
+    const shoppingCart = await db('shopping_carts')
+    .select('*')
+    .where({user_id: userid})
+    .first();
+    // then, fetch the list of items corresponding to that id
+    const items = await db('shopping_cart_items')
+    .select('book_id', 'amount')
+    .where({ shopping_cart_id: shoppingCart.id })
+    .returning('*');
+    // now that we have the items to save, delete the items from the live cart
+    await db('shopping_cart_items')
+    .where({ shopping_cart_id: shoppingCart.id })
+    .del();
+    // add the foreign key for our user to the sold_item
+    items.map(function(item){
+        item.user_id = userid;
+    })
+    // lastly, store the items into sold_items
+    await db('sold_items')
+    .insert(items)
+    // return the user's empty cart
+    return await db('shopping_carts')
+    .select('*')
+    .where({user_id: userid})
+    .first()
+}
 
-export { createShoppingCart, removeFromShoppingCart, addToShoppingCart, getShoppingCartByUserId, saveShoppingCart};
+
+export { createShoppingCart, removeFromShoppingCart, addToShoppingCart, getShoppingCartByUserId, saveShoppingCart, checkoutUser };

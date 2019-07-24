@@ -151,6 +151,7 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     add_to_saved_cart: NexusGenRootTypes['SavedCartItem']; // SavedCartItem!
     add_to_shopping_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
+    checkout_user: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
     edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
     remove_from_saved_cart: NexusGenRootTypes['SavedCart']; // SavedCart!
