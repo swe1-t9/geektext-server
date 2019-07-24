@@ -157,6 +157,7 @@ export interface NexusGenFieldTypes {
     remove_from_shopping_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
     save_shopping_cart: NexusGenRootTypes['SavedCart']; // SavedCart!
     sign_up: { id: ID }; // JWT!
+    unsave_saved_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
   }
   Query: { // field return type
     book_details: NexusGenRootTypes['Book']; // Book!

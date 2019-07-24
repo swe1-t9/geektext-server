@@ -69,6 +69,7 @@ type Mutation {
   remove_from_shopping_cart(input: RemoveFromShoppingCartInput!): ShoppingCart!
   save_shopping_cart: SavedCart!
   sign_up(input: SignUpInput!): JWT!
+  unsave_saved_cart: ShoppingCart!
 }
 
 """
