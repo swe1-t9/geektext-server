@@ -1,17 +1,17 @@
 import { objectType } from 'nexus';
-
-const Reviews = objectType({
-  name: 'Reviews',
-  description: 'User comment and star rating (review) for a book',
+/*
+const Review = objectType({
+  name: 'Review',
+  description: 'User comment and rating for a book',
   definition(t) {
     t.id('id');
     t.field('user_id', {
-      type: 'User'
+      type: 'Reviwer',
+      description: "User making reviewer",
     });
-    t.string('title');
-    t.string('body');
+    t.string('comment');
     t.int('rating');
   }
-});
+});*/
 
-export { Reviews };
+//export { Review };
