@@ -1,5 +1,5 @@
-import { queryField, inputObjectType, arg } from 'nexus';
-/*
+/*import { queryField, inputObjectType, arg } from 'nexus';
+
 const AllRatings = queryField('all_ratings', {
   type: 'Reviewer',
   resolve() {
