@@ -21,4 +21,5 @@ const getShoppingCartItemsByCartId = async (
     .returning('*');
 }
 
+
 export { getShoppingCartItemByItemId, getShoppingCartItemsByCartId };

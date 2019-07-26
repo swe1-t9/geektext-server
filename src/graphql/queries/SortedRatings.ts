@@ -1,4 +1,4 @@
-/*import { extendType, inputObjectType, arg } from 'nexus';
+/*import { extendType, inputObjectType, arg, intArg, stringArg } from 'nexus';
 import { getSortedRatings } from '../../data/review'
 
 const SortedRatings = extendType({
@@ -29,4 +29,5 @@ const SortedRatingsInput = inputObjectType({
   }
 });
 
-export { SortedRatings, SortedRatingsInput };*/
+export { SortedRatings, SortedRatingsInput };
+*/

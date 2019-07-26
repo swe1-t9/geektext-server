@@ -2,21 +2,21 @@ import { AuthenticationError } from 'apollo-server-core';
 import { mutationField, arg, inputObjectType } from 'nexus';
 
 import { Context, isAuthenticated } from '../context/Context';
-import { addToShoppingCart, getShoppingCartByUserId } from '../../data/shoppingCart';
+import { addToSavedCart, getSavedCartByUserId } from '../../data/savedCart';
 
-const AddToShoppingCartInput = inputObjectType({
-  name: 'AddToShoppingCartInput',
+const AddToSavedCartInput = inputObjectType({
+  name: 'AddToSavedCartInput',
   definition(t) {
     t.string('book_id', {required: true});
     t.int('amount', {required: true});
   }
 });
 
-const AddToShoppingCart = mutationField('add_to_shopping_cart', {
-  type: 'ShoppingCartItem',
+const AddToSavedCart = mutationField('add_to_saved_cart', {
+  type: 'SavedCartItem',
   args: {
     input: arg({
-      type: 'AddToShoppingCartInput',
+      type: 'AddToSavedCartInput',
       required: true
     })
   },
@@ -24,10 +24,10 @@ const AddToShoppingCart = mutationField('add_to_shopping_cart', {
     if (!isAuthenticated(ctx)) {
       throw new AuthenticationError('Unauthenticated');
     }
-    const cart = await getShoppingCartByUserId(ctx.viewer.id);
-    const { id } = await addToShoppingCart(cart.id, book_id, amount);
+    const cart = await getSavedCartByUserId(ctx.viewer.id);
+    const { id } = await addToSavedCart(cart.id, book_id, amount);
     return { id, amount };
   }
 });
 
-export { AddToShoppingCartInput, AddToShoppingCart };
+export { AddToSavedCartInput, AddToSavedCart };

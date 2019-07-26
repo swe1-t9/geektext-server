@@ -1,6 +1,4 @@
 import { objectType } from 'nexus';
-import { getSortedRatings, getAverageRating, getRatingCountByBookId } from '../../data/review'
-import { resolve } from 'url';
 
 const Review = objectType({
   name: 'Review',
@@ -10,7 +8,8 @@ const Review = objectType({
     t.string('title');
     t.string('body');
     t.int('rating');
-    t.field('user_id',{
+    t.boolean('isAnon');
+    t.field('reviewer',{
       type: 'User'
     });
   }
