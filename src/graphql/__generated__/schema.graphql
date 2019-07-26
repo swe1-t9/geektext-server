@@ -13,10 +13,14 @@ type Address {
   region: String
 }
 
+input AddToSavedCartInput {
+  amount: Int!
+  book_id: String!
+}
+
 input AddToShoppingCartInput {
   amount: Int!
   book_id: String!
-  user_id: String!
 }
 
 """Author details"""
@@ -66,10 +70,16 @@ input LogInInput {
 }
 
 type Mutation {
+  add_to_saved_cart(input: AddToSavedCartInput!): SavedCartItem!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
+  checkout_user: ShoppingCart!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
+  remove_from_saved_cart(input: RemoveFromSavedCartInput!): SavedCart!
+  remove_from_shopping_cart(input: RemoveFromShoppingCartInput!): ShoppingCart!
+  save_shopping_cart: SavedCart!
   sign_up(input: SignUpInput!): JWT!
+  unsave_saved_cart: ShoppingCart!
 }
 
 """
@@ -84,6 +94,29 @@ type Query {
   hello_world: String!
   sorted_books(input: SortedBooksInput!): [Book!]!
   viewer: User!
+}
+
+input RemoveFromSavedCartInput {
+  item_id: String!
+}
+
+input RemoveFromShoppingCartInput {
+  item_id: String!
+}
+
+"""A list of items the user has saved for later."""
+type SavedCart {
+  id: ID!
+  items: [SavedCartItem!]!
+}
+
+"""An item in a user's saved-for-later list."""
+type SavedCartItem {
+  amount: Int!
+
+  """The book this item represents."""
+  book: Book!
+  id: ID!
 }
 
 """A string whose value is sensitive and should not be exposed."""
@@ -133,6 +166,9 @@ type User {
   first_name: String!
   id: ID!
   last_name: String!
+
+  """The user's saved items"""
+  saved_cart: SavedCart!
 
   """The user's shipping information"""
   shipping_information: ShippingInformation!

@@ -4,6 +4,7 @@ import nullthrows from 'nullthrows';
 
 import { createUser } from '../../data/user';
 import { createShoppingCart } from '../../data/shoppingCart';
+import { createSavedCart } from '../../data/savedCart';
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
 
@@ -38,6 +39,7 @@ const SignUp = mutationField('sign_up', {
       password: hashedPassword
     });
     await createShoppingCart(id);
+    await createSavedCart(id);
     return { id };
   }
 });
