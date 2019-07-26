@@ -76,6 +76,23 @@ type Query {
   viewer: User!
 }
 
+"""Comment and rating for a book"""
+type Review {
+  body: String!
+  id: ID!
+  rating: Int!
+  title: String!
+  user_id: User!
+}
+
+"""User leaving a rating and comment"""
+type Reviewer {
+  bookPurchased: Boolean!
+  id: ID!
+  isAnon: Boolean!
+  nickname: String!
+}
+
 """A string whose value is sensitive and should not be exposed."""
 scalar SensitiveString
 

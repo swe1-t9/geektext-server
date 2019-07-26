@@ -1,6 +1,7 @@
 
 import { db } from './db';
 import { reviews } from './db/__generated__/schema';
+//note to self add null throws
 
 /*get all the reviews for a specific book
 Can sort by created_at field for posted comments */
@@ -44,7 +45,6 @@ const getRatingCountByBookId = async (
             book_id: bookId,
             rating: starRating
         })
-
         .first();
 };
 

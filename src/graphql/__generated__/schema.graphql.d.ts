@@ -71,6 +71,19 @@ export interface NexusGenRootTypes {
   }
   Mutation: {};
   Query: {};
+  Review: { // root type
+    body: string; // String!
+    id: string; // ID!
+    rating: number; // Int!
+    title: string; // String!
+    user_id: NexusGenRootTypes['User']; // User!
+  }
+  Reviewer: { // root type
+    bookPurchased: boolean; // Boolean!
+    id: string; // ID!
+    isAnon: boolean; // Boolean!
+    nickname: string; // String!
+  }
   ShippingInformation: { // root type
     selected_shipping_address_id?: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
@@ -140,6 +153,19 @@ export interface NexusGenFieldTypes {
     hello_world: string; // String!
     viewer: NexusGenRootTypes['User']; // User!
   }
+  Review: { // field return type
+    body: string; // String!
+    id: string; // ID!
+    rating: number; // Int!
+    title: string; // String!
+    user_id: NexusGenRootTypes['User']; // User!
+  }
+  Reviewer: { // field return type
+    bookPurchased: boolean; // Boolean!
+    id: string; // ID!
+    isAnon: boolean; // Boolean!
+    nickname: string; // String!
+  }
   ShippingInformation: { // field return type
     selected_shipping_address_id: string | null; // ID
     shipping_addresses: NexusGenRootTypes['Address'][]; // [Address!]!
@@ -190,7 +216,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
+export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "Review" | "Reviewer" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
 export type NexusGenInputNames = "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "SignUpInput";
 
