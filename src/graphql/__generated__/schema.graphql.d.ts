@@ -52,6 +52,10 @@ export interface NexusGenInputs {
     last_name: string; // String!
     password: string; // SensitiveString!
   }
+  SortedBooksInput: { // input type
+    field_to_sort_by: string; // String!
+    sort_direction: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -67,8 +71,13 @@ export interface NexusGenRootTypes {
     postal_code: string; // PostalCode!
     region?: string | null; // String
   }
+  Author: { // root type
+    bio: string; // String!
+    first_name: string; // String!
+    id: string; // ID!
+    last_name: string; // String!
+  }
   Book: { // root type
-    author_id: string; // ID!
     cover: string; // URL!
     description: string; // String!
     genre: string; // String!
@@ -125,6 +134,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   RemoveFromSavedCartInput: NexusGenInputs['RemoveFromSavedCartInput'];
   RemoveFromShoppingCartInput: NexusGenInputs['RemoveFromShoppingCartInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
+  SortedBooksInput: NexusGenInputs['SortedBooksInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -137,8 +147,15 @@ export interface NexusGenFieldTypes {
     postal_code: string; // PostalCode!
     region: string | null; // String
   }
+  Author: { // field return type
+    bio: string; // String!
+    books: NexusGenRootTypes['Book'][]; // [Book!]!
+    first_name: string; // String!
+    id: string; // ID!
+    last_name: string; // String!
+  }
   Book: { // field return type
-    author_id: string; // ID!
+    author: NexusGenRootTypes['Author']; // Author!
     cover: string; // URL!
     description: string; // String!
     genre: string; // String!
@@ -163,6 +180,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
+    sorted_books: NexusGenRootTypes['Book'][]; // [Book!]!
     viewer: NexusGenRootTypes['User']; // User!
   }
   SavedCart: { // field return type
@@ -226,6 +244,9 @@ export interface NexusGenArgTypes {
     book_details: { // args
       input: NexusGenInputs['BookDetailsInput']; // BookDetailsInput!
     }
+    sorted_books: { // args
+      input: NexusGenInputs['SortedBooksInput']; // SortedBooksInput!
+    }
   }
 }
 
@@ -234,9 +255,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "SavedCart" | "SavedCartItem" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
+export type NexusGenObjectNames = "Address" | "Author" | "Book" | "Mutation" | "Query" | "SavedCart" | "SavedCartItem" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "AddToSavedCartInput" | "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "RemoveFromSavedCartInput" | "RemoveFromShoppingCartInput" | "SignUpInput";
+export type NexusGenInputNames = "AddToSavedCartInput" | "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "RemoveFromSavedCartInput" | "RemoveFromShoppingCartInput" | "SignUpInput" | "SortedBooksInput";
 
 export type NexusGenEnumNames = never;
 
