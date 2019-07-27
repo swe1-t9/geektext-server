@@ -9,4 +9,10 @@ const getBookById = async (id: ID): Promise<books> => {
     .first();
 };
 
-export { getBookById };
+const getBooksByAuthorId = async(authorId: ID): Promise<Array<books>> => {
+  return await db('books')
+  .select('*')
+  .where({ author_id: authorId })
+
+};
+export { getBookById, getBooksByAuthorId };
