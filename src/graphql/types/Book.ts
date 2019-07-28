@@ -8,7 +8,6 @@ const Book = objectType({
   definition(t) {
     t.id('id');
     t.string('isbn');
-
     t.field('author', {
       type: "Author", async resolve(book) {
         const { author_id } = await getBookById(book.id)
