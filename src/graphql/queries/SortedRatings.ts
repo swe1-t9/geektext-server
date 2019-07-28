@@ -1,4 +1,4 @@
-import { queryField, extendType, inputObjectType, arg } from 'nexus';
+import { queryField,inputObjectType, arg } from 'nexus';
 import { getSortedReviews } from '../../data/review'
 
 const SortedRatings  = queryField('sorted_ratings', {

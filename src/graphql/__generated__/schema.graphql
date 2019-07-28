@@ -23,6 +23,10 @@ input AddToShoppingCartInput {
   book_id: String!
 }
 
+input AverageRatingInput {
+  book_id: String!
+}
+
 """The details of a book."""
 type Book {
   author_id: ID!
@@ -45,7 +49,6 @@ input CreateReviewInput {
   book_id: String!
   rating: Int!
   title: String!
-  user_id: String!
 }
 
 input EditUserInput {
@@ -90,6 +93,7 @@ Spain, Denmark, Sweden, Belgium or India.
 scalar PostalCode
 
 type Query {
+  average_rating(input: AverageRatingInput!): Review!
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
   sorted_ratings(input: SortedRatingsInput!): Review!
