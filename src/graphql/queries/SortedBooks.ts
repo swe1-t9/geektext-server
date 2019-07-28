@@ -1,5 +1,5 @@
 import { extendType, inputObjectType, arg, intArg, stringArg } from 'nexus';
-import { getSortedBooks } from '../../data/bookBrowsing';
+import { getSortedBooks } from '../../data/book';
       
 const SortedBooks = extendType({
     type: "Query",
