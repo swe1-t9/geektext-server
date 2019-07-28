@@ -4,12 +4,21 @@ import { reviews } from './db/__generated__/schema';
 
 /* find a review made by a specific user*/
 const getReviewById =  async (
-    reviewer: ID
+    reviewId: ID
 ): Promise< reviews > => {
     return await db('reviews')
         .select('*')
-        .where({ user_id: reviewer })
+        .where({ id: reviewId })
         .first();
+}; 
+
+/* find a review made by a specific user*/
+const getReviewsByBookId =  async (
+    bookId: ID
+): Promise< Array<reviews> > => {
+    return await db('reviews')
+        .select('*')
+        .where({ book_id: bookId });
 }; 
 
 /*get all the reviews for a specific book
@@ -18,12 +27,11 @@ const getSortedReviews = async (
     bookID: ID,
     field_to_sort_by: string,
     sortDirection: string,
-): Promise<reviews> => {
+): Promise< Array<reviews> > => {
     return await db('reviews')
         .select('*')
         .where({ book_id: bookID })
-        .orderBy(field_to_sort_by, sortDirection)
-        .first();
+        .orderBy(field_to_sort_by, sortDirection);
 };
 
 /*Return average rating for a specific book*/
@@ -82,4 +90,4 @@ const NewRating = async (
     .first();
 }
 
-export { getReviewById, getSortedReviews, getAverageRating, getRatingCountBybookID , NewRating};
+export { getReviewsByBookId, getReviewById, getSortedReviews, getAverageRating, getRatingCountBybookID , NewRating};

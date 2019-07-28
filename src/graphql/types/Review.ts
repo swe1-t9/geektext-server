@@ -30,8 +30,9 @@ const Review = objectType({
     t.field('book',{
       type: 'Book',
       description: "The book the user is rating",
-      async resolve(book) {
-        return await getBookById(book.id); 
+      async resolve(review) {
+        const {book_id}  = await getReviewById(review.id) //get user from review table first
+        return await getBookById(book_id); 
       }
     });
     t.string('title');

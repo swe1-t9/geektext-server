@@ -28,9 +28,6 @@ export interface NexusGenInputs {
     amount: number; // Int!
     book_id: string; // String!
   }
-  AverageRatingInput: { // input type
-    book_id: string; // String!
-  }
   BookDetailsInput: { // input type
     id: string; // ID!
   }
@@ -139,7 +136,6 @@ export interface NexusGenRootTypes {
 export interface NexusGenAllTypes extends NexusGenRootTypes {
   AddToSavedCartInput: NexusGenInputs['AddToSavedCartInput'];
   AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
-  AverageRatingInput: NexusGenInputs['AverageRatingInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   CreateReviewInput: NexusGenInputs['CreateReviewInput'];
   EditUserInput: NexusGenInputs['EditUserInput'];
@@ -169,6 +165,7 @@ export interface NexusGenFieldTypes {
     isbn: string; // String!
     price: number; // Float!
     publish_year: number; // Int!
+    reviews: NexusGenRootTypes['Review'][]; // [Review!]!
     title: string; // String!
   }
   Mutation: { // field return type
@@ -185,10 +182,9 @@ export interface NexusGenFieldTypes {
     unsave_saved_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
   }
   Query: { // field return type
-    average_rating: NexusGenRootTypes['Review']; // Review!
     book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
-    sorted_ratings: NexusGenRootTypes['Review']; // Review!
+    sorted_ratings: NexusGenRootTypes['Review'][]; // [Review!]!
     viewer: NexusGenRootTypes['User']; // User!
   }
   Review: { // field return type
@@ -260,9 +256,6 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    average_rating: { // args
-      input: NexusGenInputs['AverageRatingInput']; // AverageRatingInput!
-    }
     book_details: { // args
       input: NexusGenInputs['BookDetailsInput']; // BookDetailsInput!
     }
@@ -279,7 +272,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Address" | "Book" | "Mutation" | "Query" | "Review" | "SavedCart" | "SavedCartItem" | "ShippingInformation" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "AddToSavedCartInput" | "AddToShoppingCartInput" | "AverageRatingInput" | "BookDetailsInput" | "CreateReviewInput" | "EditUserInput" | "LogInInput" | "RemoveFromSavedCartInput" | "RemoveFromShoppingCartInput" | "SignUpInput" | "SortedRatingsInput";
+export type NexusGenInputNames = "AddToSavedCartInput" | "AddToShoppingCartInput" | "BookDetailsInput" | "CreateReviewInput" | "EditUserInput" | "LogInInput" | "RemoveFromSavedCartInput" | "RemoveFromShoppingCartInput" | "SignUpInput" | "SortedRatingsInput";
 
 export type NexusGenEnumNames = never;
 

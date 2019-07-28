@@ -1,6 +1,9 @@
 //TODO: change to book detail information
 
 import { objectType } from 'nexus';
+import { resolve } from 'path';
+import { getReviewsByBookId } from '../../data/review';
+
 
 const Book = objectType({
   name: 'Book',
@@ -16,6 +19,12 @@ const Book = objectType({
     t.int('publish_year');
     t.url('cover');
     t.string('description');
+    t.list.field('reviews', {
+      type:'Review',
+      async resolve(book){
+        return await getReviewsByBookId(book.id);
+      }
+   });
   }
 });
 
