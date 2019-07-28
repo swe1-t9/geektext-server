@@ -1,31 +1,41 @@
 
 import { db } from './db';
 import { reviews } from './db/__generated__/schema';
-//note to self add null throws
+
+/* find a review made by a specific user*/
+const getReviewById =  async (
+    reviewer: ID
+): Promise< reviews > => {
+    return await db('reviews')
+        .select('*')
+        .where({ user_id: reviewer })
+        .first();
+}; 
 
 /*get all the reviews for a specific book
 Can sort by created_at field for posted comments */
-const getSortedRatings = async (
-    bookId: ID,
-    fieldToSortBy: string,
+const getSortedReviews = async (
+    bookID: ID,
+    field_to_sort_by: string,
     sortDirection: string,
 ): Promise<reviews> => {
     return await db('reviews')
         .select('*')
-        .where({ book_id: bookId })
-        .orderBy(fieldToSortBy, sortDirection)
+        .where({ book_id: bookID })
+        .orderBy(field_to_sort_by, sortDirection)
         .first();
 };
 
 /*Return average rating for a specific book*/
+//CHECK IF NULL WHEN CALLED
 const getAverageRating = async (
-    bookId: ID,
+    bookID: ID,
 ): Promise<
     { 'rating'?: Pick<reviews, 'rating'> } | undefined
 > => {
     return await db('reviews')
         .avg('rating')
-        .where({ book_id: bookId })
+        .where({ book_id: bookID })
         .first();
 };
 
@@ -33,8 +43,9 @@ const getAverageRating = async (
 Needed for scoreboard 
 Example: display how many 5 star ratings
 Display 4 star ratings, etc.*/
-const getRatingCountByBookId = async (
-    bookId: ID,
+//CHECK IF NULL WHEN CALLED
+const getRatingCountBybookID = async (
+    bookID: ID,
     starRating: number,
 ): Promise<
     { 'rating'?: Pick<reviews, 'rating'> } | undefined
@@ -42,10 +53,33 @@ const getRatingCountByBookId = async (
     return await db('reviews')
         .count('rating')
         .where({
-            book_id: bookId,
+            book_id: bookID,
             rating: starRating
         })
         .first();
 };
 
-export { getSortedRatings, getAverageRating, getRatingCountByBookId };
+/* Add new rating to the database */
+const NewRating = async (
+   bookID: ID,
+   reviewer: ID,
+   reviewTitle: string,
+   comment: string,
+   starRating: number,
+   //date: Date
+): Promise<reviews> => {
+    await db('reviews')
+    .insert( {book_id: bookID,
+              user_id: reviewer,
+              title: reviewTitle,
+              body: comment,
+              rating: starRating,
+             // created_at: date  
+            } )
+    return await db('reviews')
+    .select('*')
+    .where({book_id: bookID})
+    .first();
+}
+
+export { getReviewById, getSortedReviews, getAverageRating, getRatingCountBybookID , NewRating};

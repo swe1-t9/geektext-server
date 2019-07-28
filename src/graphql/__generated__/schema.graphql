@@ -40,6 +40,14 @@ input BookDetailsInput {
   id: ID!
 }
 
+input CreateReviewInput {
+  body: String!
+  book_id: String!
+  rating: Int!
+  title: String!
+  user_id: String!
+}
+
 input EditUserInput {
   email: EmailAddress!
   first_name: String!
@@ -64,6 +72,7 @@ type Mutation {
   add_to_saved_cart(input: AddToSavedCartInput!): SavedCartItem!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   checkout_user: ShoppingCart!
+  create_review(input: CreateReviewInput!): Review!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
   remove_from_saved_cart(input: RemoveFromSavedCartInput!): SavedCart!
@@ -83,6 +92,7 @@ scalar PostalCode
 type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
+  sorted_ratings(input: SortedRatingsInput!): Review!
   viewer: User!
 }
 
@@ -97,9 +107,13 @@ input RemoveFromShoppingCartInput {
 """Comment and rating for a book"""
 type Review {
   body: String!
+
+  """The book the user is rating"""
+  book: Book!
   id: ID!
-  isAnon: Boolean!
   rating: Int!
+
+  """User submitting the review"""
   reviewer: User!
   title: String!
 }
@@ -148,6 +162,12 @@ input SignUpInput {
   first_name: String!
   last_name: String!
   password: SensitiveString!
+}
+
+input SortedRatingsInput {
+  book_id: String!
+  field_to_sort_by: String!
+  sort_direction: String!
 }
 
 """
