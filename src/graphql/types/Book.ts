@@ -1,9 +1,8 @@
-//TODO: change to book detail information
-
 import { objectType } from 'nexus';
 import { resolve } from 'path';
 import { getReviewsByBookId } from '../../data/review';
-
+import { getBookById } from '../../data/book';
+import { getAuthorById } from '../../data/author';
 
 const Book = objectType({
   name: 'Book',
@@ -11,8 +10,12 @@ const Book = objectType({
   definition(t) {
     t.id('id');
     t.string('isbn');
-    // TODO: We shouldn't be returning author_id, but an Author GraphQLObjectType.
-    t.id('author_id');
+    t.field('author', {
+      type: "Author", async resolve(book) {
+        const { author_id } = await getBookById(book.id)
+        return await getAuthorById(author_id)
+      }
+    });
     t.float('price');
     t.string('title');
     t.string('genre');

@@ -9,3 +9,8 @@ export * from './UnsaveSavedCart';
 export * from './CheckoutUser';
 export * from './EditUser';
 export * from './CreateReview';
+export * from './AddShippingAddress';
+export * from './SetDefaultShippingAddress';
+export * from './AddPaymentCredential';
+export * from './RemovePaymentCredential';
+export * from './RemoveShippingAddress';

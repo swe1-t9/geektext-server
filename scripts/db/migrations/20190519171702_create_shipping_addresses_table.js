@@ -10,12 +10,14 @@ exports.up = async function(knex, Promise) {
       .notNull()
       .references('id')
       .inTable('users');
-    table
-      .uuid('address_id')
-      .notNull()
-      .references('id')
-      .inTable('addresses');
-    table.boolean('is_default');
+    table.string('address_line_1').notNull();
+    table.string('address_line_2').nullable();
+    table.string('address_line_3').nullable();
+    table.string('city').notNull();
+    table.string('region').nullable();
+    table.string('country').notNull();
+    table.string('postal_code').notNull();
+    table.boolean('is_default').notNull();
     table.dateTime('created_at').defaultTo(knex.fn.now());
   });
 };

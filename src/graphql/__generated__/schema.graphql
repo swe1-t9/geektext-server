@@ -2,13 +2,18 @@
 ### Do not make changes to this file directly
 
 
-"""A physical address."""
-type Address {
+input AddPaymentCredentialInput {
+  card_association: String!
+  last_four_digits: Int!
+  stripe_token: String!
+}
+
+input AddShippingAddressInput {
   address_line_1: String!
   address_line_2: String
   address_line_3: String
   city: String!
-  id: ID!
+  country: String!
   postal_code: PostalCode!
   region: String
 }
@@ -23,9 +28,18 @@ input AddToShoppingCartInput {
   book_id: String!
 }
 
+"""Author details"""
+type Author {
+  bio: String!
+  books: [Book!]!
+  first_name: String!
+  id: ID!
+  last_name: String!
+}
+
 """The details of a book."""
 type Book {
-  author_id: ID!
+  author: Author!
   cover: URL!
   description: String!
   genre: String!
@@ -52,6 +66,8 @@ input EditUserInput {
   email: EmailAddress!
   first_name: String!
   last_name: String!
+  selected_shipping_address_id: ID!
+  username: String!
 }
 
 """
@@ -69,6 +85,8 @@ input LogInInput {
 }
 
 type Mutation {
+  add_payment_credential(input: AddPaymentCredentialInput!): PaymentCredential!
+  add_shipping_address(input: AddShippingAddressInput!): ShippingAddress!
   add_to_saved_cart(input: AddToSavedCartInput!): SavedCartItem!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   checkout_user: ShoppingCart!
@@ -77,9 +95,19 @@ type Mutation {
   log_in(input: LogInInput!): JWT!
   remove_from_saved_cart(input: RemoveFromSavedCartInput!): SavedCart!
   remove_from_shopping_cart(input: RemoveFromShoppingCartInput!): ShoppingCart!
+  remove_payment_credential(input: RemovePaymentCredentialInput!): PaymentCredential!
+  remove_shipping_address(input: RemoveShippingAddressInput!): ShippingAddress!
   save_shopping_cart: SavedCart!
+  set_default_shipping_address(input: SetDefaultShippingAddressInput!): ShippingAddress!
   sign_up(input: SignUpInput!): JWT!
   unsave_saved_cart: ShoppingCart!
+}
+
+"""A physical address to ship to."""
+type PaymentCredential {
+  card_association: String!
+  id: ID!
+  last_four_digits: Int!
 }
 
 """
@@ -92,6 +120,7 @@ scalar PostalCode
 type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
+  sorted_books(input: SortedBooksInput!): [Book!]!
   sorted_ratings(input: SortedRatingsInput!): [Review!]!
   viewer: User!
 }
@@ -102,6 +131,14 @@ input RemoveFromSavedCartInput {
 
 input RemoveFromShoppingCartInput {
   item_id: String!
+}
+
+input RemovePaymentCredentialInput {
+  payment_credential_id: ID!
+}
+
+input RemoveShippingAddressInput {
+  shipping_address_id: ID!
 }
 
 """Comment and rating for a book"""
@@ -136,10 +173,21 @@ type SavedCartItem {
 """A string whose value is sensitive and should not be exposed."""
 scalar SensitiveString
 
-"""The shipping information of a user"""
-type ShippingInformation {
-  selected_shipping_address_id: ID
-  shipping_addresses: [Address!]!
+input SetDefaultShippingAddressInput {
+  address_id: ID!
+}
+
+"""A physical address to ship to."""
+type ShippingAddress {
+  address_line_1: String!
+  address_line_2: String
+  address_line_3: String
+  city: String!
+  country: String!
+  id: ID!
+  is_default: Boolean!
+  postal_code: PostalCode!
+  region: String
 }
 
 """A shopping cart, holding items to be purchased later."""
@@ -158,10 +206,23 @@ type ShoppingCartItem {
 }
 
 input SignUpInput {
+  address_line_1: String!
+  address_line_2: String
+  address_line_3: String
+  city: String!
+  country: String!
   email: EmailAddress!
   first_name: String!
   last_name: String!
   password: SensitiveString!
+  postal_code: PostalCode!
+  region: String
+  username: String!
+}
+
+input SortedBooksInput {
+  field_to_sort_by: String!
+  sort_direction: String!
 }
 
 input SortedRatingsInput {
@@ -182,12 +243,16 @@ type User {
   id: ID!
   last_name: String!
 
+  """The user's payment credentials"""
+  payment_credentials: [PaymentCredential!]!
+
   """The user's saved items"""
   saved_cart: SavedCart!
 
-  """The user's shipping information"""
-  shipping_information: ShippingInformation!
+  """The user's shipping addresses"""
+  shipping_addresses: [ShippingAddress!]!
 
   """The user's shopping cart"""
   shopping_cart: ShoppingCart!
+  username: String!
 }

@@ -4,5 +4,4 @@ export * from './BookDetails';
 export * from './SortedRatings';
 export * from './AverageRating';
 export * from './CountRating';
-
-
+export * from './SortedBooks';
