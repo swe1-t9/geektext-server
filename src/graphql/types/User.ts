@@ -2,6 +2,7 @@ import { objectType } from 'nexus';
 import { getShippingAddressesByUserId } from '../../data/shippingAddress';
 import { getShoppingCartByUserId } from '../../data/shoppingCart';
 import { getPaymentCredentialsByUserId } from '../../data/paymentCredential';
+import { getSavedCartByUserId } from '../../data/savedCart';
 
 const User = objectType({
   name: 'User',
@@ -31,6 +32,13 @@ const User = objectType({
       description: "The user's shopping cart",
       async resolve(user) {
         return await getShoppingCartByUserId(user.id);
+      }
+    });
+    t.field('saved_cart', {
+      type: 'SavedCart',
+      description: "The user's saved items",
+      async resolve(user) {
+        return await getSavedCartByUserId(user.id);
       }
     });
   }

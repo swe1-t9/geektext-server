@@ -18,15 +18,28 @@ input AddShippingAddressInput {
   region: String
 }
 
+input AddToSavedCartInput {
+  amount: Int!
+  book_id: String!
+}
+
 input AddToShoppingCartInput {
   amount: Int!
   book_id: String!
-  user_id: String!
+}
+
+"""Author details"""
+type Author {
+  bio: String!
+  books: [Book!]!
+  first_name: String!
+  id: ID!
+  last_name: String!
 }
 
 """The details of a book."""
 type Book {
-  author_id: ID!
+  author: Author!
   cover: URL!
   description: String!
   genre: String!
@@ -66,13 +79,19 @@ input LogInInput {
 type Mutation {
   add_payment_credential(input: AddPaymentCredentialInput!): PaymentCredential!
   add_shipping_address(input: AddShippingAddressInput!): ShippingAddress!
+  add_to_saved_cart(input: AddToSavedCartInput!): SavedCartItem!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
+  checkout_user: ShoppingCart!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
+  remove_from_saved_cart(input: RemoveFromSavedCartInput!): SavedCart!
+  remove_from_shopping_cart(input: RemoveFromShoppingCartInput!): ShoppingCart!
   remove_payment_credential(input: RemovePaymentCredentialInput!): PaymentCredential!
   remove_shipping_address(input: RemoveShippingAddressInput!): ShippingAddress!
+  save_shopping_cart: SavedCart!
   set_default_shipping_address(input: SetDefaultShippingAddressInput!): ShippingAddress!
   sign_up(input: SignUpInput!): JWT!
+  unsave_saved_cart: ShoppingCart!
 }
 
 """A physical address to ship to."""
@@ -92,7 +111,16 @@ scalar PostalCode
 type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
+  sorted_books(input: SortedBooksInput!): [Book!]!
   viewer: User!
+}
+
+input RemoveFromSavedCartInput {
+  item_id: String!
+}
+
+input RemoveFromShoppingCartInput {
+  item_id: String!
 }
 
 input RemovePaymentCredentialInput {
@@ -101,6 +129,21 @@ input RemovePaymentCredentialInput {
 
 input RemoveShippingAddressInput {
   shipping_address_id: ID!
+}
+
+"""A list of items the user has saved for later."""
+type SavedCart {
+  id: ID!
+  items: [SavedCartItem!]!
+}
+
+"""An item in a user's saved-for-later list."""
+type SavedCartItem {
+  amount: Int!
+
+  """The book this item represents."""
+  book: Book!
+  id: ID!
 }
 
 """A string whose value is sensitive and should not be exposed."""
@@ -153,6 +196,11 @@ input SignUpInput {
   username: String!
 }
 
+input SortedBooksInput {
+  field_to_sort_by: String!
+  sort_direction: String!
+}
+
 """
 A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt.
 """
@@ -167,6 +215,9 @@ type User {
 
   """The user's payment credentials"""
   payment_credentials: [PaymentCredential!]!
+
+  """The user's saved items"""
+  saved_cart: SavedCart!
 
   """The user's shipping addresses"""
   shipping_addresses: [ShippingAddress!]!

@@ -34,10 +34,13 @@ export interface NexusGenInputs {
     postal_code: string; // PostalCode!
     region?: string | null; // String
   }
+  AddToSavedCartInput: { // input type
+    amount: number; // Int!
+    book_id: string; // String!
+  }
   AddToShoppingCartInput: { // input type
     amount: number; // Int!
     book_id: string; // String!
-    user_id: string; // String!
   }
   BookDetailsInput: { // input type
     id: string; // ID!
@@ -52,6 +55,12 @@ export interface NexusGenInputs {
   LogInInput: { // input type
     email: string; // EmailAddress!
     password: string; // SensitiveString!
+  }
+  RemoveFromSavedCartInput: { // input type
+    item_id: string; // String!
+  }
+  RemoveFromShoppingCartInput: { // input type
+    item_id: string; // String!
   }
   RemovePaymentCredentialInput: { // input type
     payment_credential_id: string; // ID!
@@ -76,14 +85,23 @@ export interface NexusGenInputs {
     region?: string | null; // String
     username: string; // String!
   }
+  SortedBooksInput: { // input type
+    field_to_sort_by: string; // String!
+    sort_direction: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Author: { // root type
+    bio: string; // String!
+    first_name: string; // String!
+    id: string; // ID!
+    last_name: string; // String!
+  }
   Book: { // root type
-    author_id: string; // ID!
     cover: string; // URL!
     description: string; // String!
     genre: string; // String!
@@ -100,6 +118,13 @@ export interface NexusGenRootTypes {
     last_four_digits: number; // Int!
   }
   Query: {};
+  SavedCart: { // root type
+    id: string; // ID!
+  }
+  SavedCartItem: { // root type
+    amount: number; // Int!
+    id: string; // ID!
+  }
   ShippingAddress: { // root type
     address_line_1: string; // String!
     address_line_2?: string | null; // String
@@ -140,19 +165,30 @@ export interface NexusGenRootTypes {
 export interface NexusGenAllTypes extends NexusGenRootTypes {
   AddPaymentCredentialInput: NexusGenInputs['AddPaymentCredentialInput'];
   AddShippingAddressInput: NexusGenInputs['AddShippingAddressInput'];
+  AddToSavedCartInput: NexusGenInputs['AddToSavedCartInput'];
   AddToShoppingCartInput: NexusGenInputs['AddToShoppingCartInput'];
   BookDetailsInput: NexusGenInputs['BookDetailsInput'];
   EditUserInput: NexusGenInputs['EditUserInput'];
   LogInInput: NexusGenInputs['LogInInput'];
+  RemoveFromSavedCartInput: NexusGenInputs['RemoveFromSavedCartInput'];
+  RemoveFromShoppingCartInput: NexusGenInputs['RemoveFromShoppingCartInput'];
   RemovePaymentCredentialInput: NexusGenInputs['RemovePaymentCredentialInput'];
   RemoveShippingAddressInput: NexusGenInputs['RemoveShippingAddressInput'];
   SetDefaultShippingAddressInput: NexusGenInputs['SetDefaultShippingAddressInput'];
   SignUpInput: NexusGenInputs['SignUpInput'];
+  SortedBooksInput: NexusGenInputs['SortedBooksInput'];
 }
 
 export interface NexusGenFieldTypes {
+  Author: { // field return type
+    bio: string; // String!
+    books: NexusGenRootTypes['Book'][]; // [Book!]!
+    first_name: string; // String!
+    id: string; // ID!
+    last_name: string; // String!
+  }
   Book: { // field return type
-    author_id: string; // ID!
+    author: NexusGenRootTypes['Author']; // Author!
     cover: string; // URL!
     description: string; // String!
     genre: string; // String!
@@ -165,13 +201,19 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     add_payment_credential: NexusGenRootTypes['PaymentCredential']; // PaymentCredential!
     add_shipping_address: NexusGenRootTypes['ShippingAddress']; // ShippingAddress!
+    add_to_saved_cart: NexusGenRootTypes['SavedCartItem']; // SavedCartItem!
     add_to_shopping_cart: NexusGenRootTypes['ShoppingCartItem']; // ShoppingCartItem!
+    checkout_user: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
     edit_user: NexusGenRootTypes['User']; // User!
     log_in: { id: ID }; // JWT!
+    remove_from_saved_cart: NexusGenRootTypes['SavedCart']; // SavedCart!
+    remove_from_shopping_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
     remove_payment_credential: NexusGenRootTypes['PaymentCredential']; // PaymentCredential!
     remove_shipping_address: NexusGenRootTypes['ShippingAddress']; // ShippingAddress!
+    save_shopping_cart: NexusGenRootTypes['SavedCart']; // SavedCart!
     set_default_shipping_address: NexusGenRootTypes['ShippingAddress']; // ShippingAddress!
     sign_up: { id: ID }; // JWT!
+    unsave_saved_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
   }
   PaymentCredential: { // field return type
     card_association: string; // String!
@@ -181,7 +223,17 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     book_details: NexusGenRootTypes['Book']; // Book!
     hello_world: string; // String!
+    sorted_books: NexusGenRootTypes['Book'][]; // [Book!]!
     viewer: NexusGenRootTypes['User']; // User!
+  }
+  SavedCart: { // field return type
+    id: string; // ID!
+    items: NexusGenRootTypes['SavedCartItem'][]; // [SavedCartItem!]!
+  }
+  SavedCartItem: { // field return type
+    amount: number; // Int!
+    book: NexusGenRootTypes['Book']; // Book!
+    id: string; // ID!
   }
   ShippingAddress: { // field return type
     address_line_1: string; // String!
@@ -209,6 +261,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     last_name: string; // String!
     payment_credentials: NexusGenRootTypes['PaymentCredential'][]; // [PaymentCredential!]!
+    saved_cart: NexusGenRootTypes['SavedCart']; // SavedCart!
     shipping_addresses: NexusGenRootTypes['ShippingAddress'][]; // [ShippingAddress!]!
     shopping_cart: NexusGenRootTypes['ShoppingCart']; // ShoppingCart!
     username: string; // String!
@@ -223,6 +276,9 @@ export interface NexusGenArgTypes {
     add_shipping_address: { // args
       input: NexusGenInputs['AddShippingAddressInput']; // AddShippingAddressInput!
     }
+    add_to_saved_cart: { // args
+      input: NexusGenInputs['AddToSavedCartInput']; // AddToSavedCartInput!
+    }
     add_to_shopping_cart: { // args
       input: NexusGenInputs['AddToShoppingCartInput']; // AddToShoppingCartInput!
     }
@@ -231,6 +287,12 @@ export interface NexusGenArgTypes {
     }
     log_in: { // args
       input: NexusGenInputs['LogInInput']; // LogInInput!
+    }
+    remove_from_saved_cart: { // args
+      input: NexusGenInputs['RemoveFromSavedCartInput']; // RemoveFromSavedCartInput!
+    }
+    remove_from_shopping_cart: { // args
+      input: NexusGenInputs['RemoveFromShoppingCartInput']; // RemoveFromShoppingCartInput!
     }
     remove_payment_credential: { // args
       input: NexusGenInputs['RemovePaymentCredentialInput']; // RemovePaymentCredentialInput!
@@ -249,6 +311,9 @@ export interface NexusGenArgTypes {
     book_details: { // args
       input: NexusGenInputs['BookDetailsInput']; // BookDetailsInput!
     }
+    sorted_books: { // args
+      input: NexusGenInputs['SortedBooksInput']; // SortedBooksInput!
+    }
   }
 }
 
@@ -257,9 +322,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Book" | "Mutation" | "PaymentCredential" | "Query" | "ShippingAddress" | "ShoppingCart" | "ShoppingCartItem" | "User";
+export type NexusGenObjectNames = "Author" | "Book" | "Mutation" | "PaymentCredential" | "Query" | "SavedCart" | "SavedCartItem" | "ShippingAddress" | "ShoppingCart" | "ShoppingCartItem" | "User";
 
-export type NexusGenInputNames = "AddPaymentCredentialInput" | "AddShippingAddressInput" | "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "RemovePaymentCredentialInput" | "RemoveShippingAddressInput" | "SetDefaultShippingAddressInput" | "SignUpInput";
+export type NexusGenInputNames = "AddPaymentCredentialInput" | "AddShippingAddressInput" | "AddToSavedCartInput" | "AddToShoppingCartInput" | "BookDetailsInput" | "EditUserInput" | "LogInInput" | "RemoveFromSavedCartInput" | "RemoveFromShoppingCartInput" | "RemovePaymentCredentialInput" | "RemoveShippingAddressInput" | "SetDefaultShippingAddressInput" | "SignUpInput" | "SortedBooksInput";
 
 export type NexusGenEnumNames = never;
 
