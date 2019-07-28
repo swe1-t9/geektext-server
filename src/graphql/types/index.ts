@@ -9,3 +9,4 @@ export * from './Book';
 export * from './URL';
 export * from './ShoppingCart';
 export * from './ShoppingCartItem';
+export * from './PaymentCredential';

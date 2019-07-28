@@ -12,23 +12,45 @@ const createShippingAddress = async (
     .first();
 };
 
-const getShippingAddress = async (id: ID): Promise<shipping_addresses> => {
-  return await db('shipping_addresses')
+const getShippingAddress = async (id: ID): Promise<shipping_addresses> =>
+  await db('shipping_addresses')
     .select('*')
     .where({ id })
     .first();
-};
 
 const getShippingAddressesByUserId = async (
   userId: ID
-): Promise<Array<shipping_addresses>> => {
+): Promise<Array<shipping_addresses>> =>
+  await db('shipping_addresses')
+    .select('*')
+    .where({ user_id: userId })
+    .orderBy('created_at', 'asc');
+
+const updateShippingAddressById = async (
+  shippingAddressId: ID,
+  updatedAddress: Partial<shipping_addresses>
+): Promise<shipping_addresses> => {
+  await db('shipping_addresses')
+    .update(updatedAddress)
+    .where({ id: shippingAddressId });
   return await db('shipping_addresses')
     .select('*')
-    .where({ user_id: userId });
+    .where({ id: shippingAddressId })
+    .first();
 };
+
+const deleteShippingAddress = async (
+  shippingAddressId: ID
+): Promise<shipping_addresses> =>
+  await db('shipping_addresses')
+    .delete('*')
+    .where({ id: shippingAddressId })
+    .first();
 
 export {
   getShippingAddress,
   createShippingAddress,
-  getShippingAddressesByUserId
+  getShippingAddressesByUserId,
+  updateShippingAddressById,
+  deleteShippingAddress
 };

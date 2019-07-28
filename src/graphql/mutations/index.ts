@@ -3,3 +3,7 @@ export * from './LogIn';
 export * from './AddToShoppingCart';
 export * from './EditUser';
 export * from './AddShippingAddress';
+export * from './SetDefaultShippingAddress';
+export * from './AddPaymentCredential';
+export * from './RemovePaymentCredential';
+export * from './RemoveShippingAddress';

@@ -10,6 +10,7 @@ const ShippingAddress = objectType({
     t.string('address_line_3', { nullable: true });
     t.string('city');
     t.string('region', { nullable: true });
+    t.string('country');
     t.boolean('is_default');
     t.postalCode('postal_code');
   }

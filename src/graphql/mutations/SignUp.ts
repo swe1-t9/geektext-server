@@ -11,6 +11,7 @@ const { BCRYPT_SALT_ROUNDS } = process.env;
 const SignUpInput = inputObjectType({
   name: 'SignUpInput',
   definition(t) {
+    t.string('username', { required: true });
     t.string('first_name', { required: true });
     t.string('last_name', { required: true });
     t.field('password', {
@@ -36,7 +37,22 @@ const SignUp = mutationField('sign_up', {
       required: true
     })
   },
-  async resolve(root, { input: { password, ...rest } }) {
+  async resolve(
+    root,
+    {
+      input: {
+        password,
+        address_line_1,
+        address_line_2,
+        address_line_3,
+        country,
+        city,
+        postal_code,
+        region,
+        ...rest
+      }
+    }
+  ) {
     const hashedPassword = await hash(
       password,
       parseInt(nullthrows(BCRYPT_SALT_ROUNDS))
@@ -47,11 +63,14 @@ const SignUp = mutationField('sign_up', {
     });
     await createShoppingCart(id);
     await createShippingAddress({
-      ...rest,
       user_id: id,
-      address_line_2: rest.address_line_2 || null,
-      address_line_3: rest.address_line_3 || null,
-      region: rest.region || null,
+      address_line_1,
+      address_line_2: address_line_2 || null,
+      address_line_3: address_line_3 || null,
+      region: region || null,
+      city,
+      country,
+      postal_code,
       is_default: true
     });
     return { id };

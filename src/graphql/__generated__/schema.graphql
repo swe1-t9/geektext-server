@@ -2,6 +2,12 @@
 ### Do not make changes to this file directly
 
 
+input AddPaymentCredentialInput {
+  card_association: String!
+  last_four_digits: Int!
+  stripe_token: String!
+}
+
 input AddShippingAddressInput {
   address_line_1: String!
   address_line_2: String
@@ -39,6 +45,8 @@ input EditUserInput {
   email: EmailAddress!
   first_name: String!
   last_name: String!
+  selected_shipping_address_id: ID!
+  username: String!
 }
 
 """
@@ -56,11 +64,22 @@ input LogInInput {
 }
 
 type Mutation {
+  add_payment_credential(input: AddPaymentCredentialInput!): PaymentCredential!
   add_shipping_address(input: AddShippingAddressInput!): ShippingAddress!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
+  remove_payment_credential(input: RemovePaymentCredentialInput!): PaymentCredential!
+  remove_shipping_address(input: RemoveShippingAddressInput!): ShippingAddress!
+  set_default_shipping_address(input: SetDefaultShippingAddressInput!): ShippingAddress!
   sign_up(input: SignUpInput!): JWT!
+}
+
+"""A physical address to ship to."""
+type PaymentCredential {
+  card_association: String!
+  id: ID!
+  last_four_digits: Int!
 }
 
 """
@@ -76,8 +95,20 @@ type Query {
   viewer: User!
 }
 
+input RemovePaymentCredentialInput {
+  payment_credential_id: ID!
+}
+
+input RemoveShippingAddressInput {
+  shipping_address_id: ID!
+}
+
 """A string whose value is sensitive and should not be exposed."""
 scalar SensitiveString
+
+input SetDefaultShippingAddressInput {
+  address_id: ID!
+}
 
 """A physical address to ship to."""
 type ShippingAddress {
@@ -85,6 +116,7 @@ type ShippingAddress {
   address_line_2: String
   address_line_3: String
   city: String!
+  country: String!
   id: ID!
   is_default: Boolean!
   postal_code: PostalCode!
@@ -118,6 +150,7 @@ input SignUpInput {
   password: SensitiveString!
   postal_code: PostalCode!
   region: String
+  username: String!
 }
 
 """
@@ -132,9 +165,13 @@ type User {
   id: ID!
   last_name: String!
 
+  """The user's payment credentials"""
+  payment_credentials: [PaymentCredential!]!
+
   """The user's shipping addresses"""
   shipping_addresses: [ShippingAddress!]!
 
   """The user's shopping cart"""
   shopping_cart: ShoppingCart!
+  username: String!
 }
