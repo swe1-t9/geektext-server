@@ -40,6 +40,7 @@ type Author {
 """The details of a book."""
 type Book {
   author: Author!
+  average_rating: Float!
   cover: URL!
   description: String!
   genre: String!
@@ -47,11 +48,19 @@ type Book {
   isbn: String!
   price: Float!
   publish_year: Int!
+  reviews: [Review!]!
   title: String!
 }
 
 input BookDetailsInput {
   id: ID!
+}
+
+input CreateReviewInput {
+  body: String!
+  book_id: String!
+  rating: Int!
+  title: String!
 }
 
 input EditUserInput {
@@ -82,6 +91,7 @@ type Mutation {
   add_to_saved_cart(input: AddToSavedCartInput!): SavedCartItem!
   add_to_shopping_cart(input: AddToShoppingCartInput!): ShoppingCartItem!
   checkout_user: ShoppingCart!
+  create_review(input: CreateReviewInput!): Review!
   edit_user(input: EditUserInput!): User!
   log_in(input: LogInInput!): JWT!
   remove_from_saved_cart(input: RemoveFromSavedCartInput!): SavedCart!
@@ -112,6 +122,7 @@ type Query {
   book_details(input: BookDetailsInput!): Book!
   hello_world: String!
   sorted_books(input: SortedBooksInput!): [Book!]!
+  sorted_ratings(input: SortedRatingsInput!): [Review!]!
   viewer: User!
 }
 
@@ -129,6 +140,20 @@ input RemovePaymentCredentialInput {
 
 input RemoveShippingAddressInput {
   shipping_address_id: ID!
+}
+
+"""Comment and rating for a book"""
+type Review {
+  body: String!
+
+  """The book the user is rating"""
+  book: Book!
+  id: ID!
+  rating: Int!
+
+  """User submitting the review"""
+  reviewer: User!
+  title: String!
 }
 
 """A list of items the user has saved for later."""
@@ -197,6 +222,12 @@ input SignUpInput {
 }
 
 input SortedBooksInput {
+  field_to_sort_by: String!
+  sort_direction: String!
+}
+
+input SortedRatingsInput {
+  book_id: String!
   field_to_sort_by: String!
   sort_direction: String!
 }
