@@ -9,6 +9,10 @@ exports.up = async function(knex, Promise) {
       .string('email')
       .notNull()
       .unique();
+    table
+      .string('username')
+      .notNull()
+      .unique();
     table.string('password').notNull();
     table.string('first_name').notNull();
     table.string('last_name').notNull();
