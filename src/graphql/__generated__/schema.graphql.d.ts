@@ -208,6 +208,7 @@ export interface NexusGenFieldTypes {
   }
   Book: { // field return type
     author: NexusGenRootTypes['Author']; // Author!
+    average_rating: number; // Float!
     cover: string; // URL!
     description: string; // String!
     genre: string; // String!

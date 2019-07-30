@@ -40,6 +40,7 @@ type Author {
 """The details of a book."""
 type Book {
   author: Author!
+  average_rating: Float!
   cover: URL!
   description: String!
   genre: String!
